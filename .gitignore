@@ -1,0 +1,5 @@
+/* IDEA-spesifisiä tiedostoja joita voidaan tarpeen mukaan ignoorata tarkemmin*/
+.idea/
+*.iml
+
+/* Muu*/
