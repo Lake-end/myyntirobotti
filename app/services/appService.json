@@ -1,0 +1,21 @@
+{
+  "question": "Miten päiväsi on sujunut?",
+  "answers": [
+    {
+      "answer": "Hyvin"
+
+    },
+    {
+      "answer": "Huonosti"
+
+    },
+    {
+      "answer": "Kohtalaisesti"
+
+    },
+    {
+      "answer": "En kommentoi"
+
+    }
+  ]
+}
