@@ -1,5 +1,8 @@
-/* IDEA-spesifisiä tiedostoja joita voidaan tarpeen mukaan ignoorata tarkemmin*/
+# IDEA-spesifisiä tiedostoja joita voidaan tarpeen mukaan ignoorata tarkemmin
 .idea/
 *.iml
 
-/* Muu*/
+# Node
+node_modules/
+
+# Muu
