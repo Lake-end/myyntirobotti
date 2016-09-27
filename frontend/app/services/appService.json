@@ -1,21 +1,143 @@
+{"questions":[
 {
   "question": "Miten päiväsi on sujunut?",
+  "id": 0,
   "answers": [
     {
-      "answer": "Hyvin"
+      "answer": "Hyvin",
+      "qid": 1
 
     },
     {
-      "answer": "Huonosti"
+      "answer": "Huonosti",
+      "qid": 2
 
     },
     {
-      "answer": "Kohtalaisesti"
+      "answer": "Kohtalaisesti",
+      "qid": 3
 
     },
     {
-      "answer": "En kommentoi"
+      "answer": "En kommentoi",
+      "qid": 4
 
     }
   ]
-}
+},
+  {
+    "question": "Mitä teet?",
+    "id": 1,
+    "answers": [
+      {
+        "answer": "Käyn töissä",
+        "qid": 5
+
+      },
+      {
+        "answer": "Opiskelen",
+        "qid": 5
+
+      },
+      {
+        "answer": "Olen työtön",
+        "qid": 5
+
+      },
+      {
+        "answer": "En kommentoi",
+        "qid": 5
+
+      }
+    ]
+  },
+  {
+    "question": "Paljon tienaat kuussa",
+    "id": 2,
+    "answers": [
+      {
+        "answer": "yli 3000€",
+        "qid": 5
+
+      },
+      {
+        "answer": "2000-3000€",
+        "qid": 5
+
+      },
+      {
+        "answer": "1000-2000€",
+        "qid": 5
+
+      },
+      {
+        "answer": "<1000€",
+        "qid": 5
+
+      }
+    ]
+  },
+  {
+    "question": "Missä asut",
+    "id": 3,
+    "answers": [
+      {
+        "answer": "Suomessa",
+        "qid": 5
+
+      },
+      {
+        "answer": "Ulkomailla",
+        "qid": 5
+
+      },
+      {
+        "answer": "Virossa",
+        "qid": 5
+
+      },
+      {
+        "answer": "Minulla ei ole kotia ;(",
+        "qid": 5
+
+      }
+    ]
+  },
+  {
+    "question": "Miksi?",
+    "id": 4,
+    "answers": [
+      {
+        "answer": "Ei tehnyt mieli",
+        "qid": 5
+
+      },
+      {
+        "answer": "En osannut vastata kysymyksiin",
+        "qid": 5
+
+      },
+      {
+        "answer": "En osaa lukea",
+        "qid": 5
+
+      },
+      {
+        "answer": "-",
+        "qid": 5
+
+      }
+    ]
+  },
+  {
+    "question": "Kiitos vastauksista",
+    "id": 5,
+    "answers": [
+      {
+        "answer": "Palaa alkuun",
+        "qid": 0
+
+      }
+    ]
+  }
+]}

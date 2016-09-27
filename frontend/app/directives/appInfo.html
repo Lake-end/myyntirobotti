@@ -1,14 +1,14 @@
 <div class="col-md-12 bubble">
     <div>
-        <p>{{chatData.question}}</p>
+        <p>{{chatData.questions[qid].question}}</p>
     </div>
 </div>
 <div class="col-md-9 answers">
-    <div ng-repeat="answer in chatData.answers">
-        <button class="btn btn-default">{{answer.answer}}</button>
+    <div ng-repeat="answer in chatData.questions[qid].answers">
+        <button class="btn btn-default" ng-click="answerFunction(answer.qid)">{{answer.answer}}</button>
     </div>
 </div>
-<div class="col-md-3 robot">
+<div class="col-md-3 robot" ng-click="answerFunction(0)">
     <div>
     </div>
     <!-- <div style="height:140px; background-color:#DF192C; margin-bottom:10px;">
