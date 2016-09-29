@@ -4,6 +4,9 @@
 var express = require('express');
 var app = express();
 
+// Load environment variables from .env file
+require('dotenv').load();
+
 require('./routes/routes')(app);
 
 // Start the server.
