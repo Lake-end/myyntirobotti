@@ -15,12 +15,33 @@ Vagrant.configure("2") do |config|
   # Forward ports.
   config.vm.network "forwarded_port", guest: 3000, host: 3000
 
-  # Install required packages.
+  # Install and configure required packages.
   config.vm.provision "shell", inline: <<-SHELL
+    -- Change this to use another version of PostgreSQL.
+    PG_VERSION=9.5
+
     apt-get update
     apt-get install nodejs -y
     apt-get install npm -y
-    apt-get install postgresql -y
+    apt-get install postgresql-$PG_VERSION -y
+
+    -- Symlink for install node packages with npm.
+    sudo ln -s `which nodejs` /usr/bin/node
+
+    -- Setup PostgreSQL.
+    PG_CONF="/etc/postgresql/$PG_VERSION/main/postgresql.conf"
+    PG_HBA="/etc/postgresql/$PG_VERSION/main/pg_hba.conf"
+    sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/" "$PG_CONF"
+    echo "host    all             all             all                     md5" >> "$PG_HBA"
+    service postgresql restart
+    cat << EOF | su - postgres -c psql
+    CREATE USER myyntirobotti WITH PASSWORD 'myyntirobotti';
+    CREATE DATABASE myyntirobotti WITH OWNER=myyntirobotti
+      LC_COLLATE='en_US.utf8'
+      LC_CTYPE='en_US.utf8'
+      ENCODING='UTF8'
+      TEMPLATE=template0;
+EOF
   SHELL
 
 end
