@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="../styles/style.css">
 </head>
 <body ng-app="myApp">
-<div class="main" ng-controller="MainController">
+<div class="main main-height" ng-controller="MainController" draggable="true" id="dragme" ondrag="dragFunction()">
     <div class="col-md-12 info" id="clickme">
         <div>
             <h4>Hei, olen myyntirobotti!</h4>
@@ -24,6 +24,7 @@
 <script src="../app/directives/appInfo.js"></script>
 <script src="../app/services/appService.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
     $(document).ready(function (){
         $("#clickme").on("click", function (){
@@ -31,13 +32,22 @@
                 $("#book").animate(
                         {height: "360px"});
                 $("#testi").css("display", "block");
+
             }
             else if ($("#book").height() == 360) {
                 $("#testi").css("display", "none");
                 $("#book").animate({height: "0px"});
+
+
             }
         });
     });
+    $( function() {
+        $( "#dragme" ).draggable();
+    } );
+    function dragFunction(){
+        $("#dragme").removeClass("main-height");
+    }
 </script>
 </body>
 </html>
