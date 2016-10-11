@@ -1,12 +1,13 @@
 body{
     height:100%;
+
 }
 
 .main {
     position:absolute;
-    right:40%;
-    width:350px;
-    background-color:#F1F1F1;
+    right:82%;
+    width:310px;
+    background-color:rgba(241, 241, 241, 0.5);
     border:1px solid #dedede;
 }
 .main-height{
@@ -16,21 +17,29 @@ body{
 
 
 .info {
+    padding: 0;
+    color: white;
+
+}
+.info-text {
     padding:0;
     border:1px solid #DF192C;
-    margin-bottom:10px;
-}
-
-.info > div {
-    height:75px;
+    height:60px;
     background-color:#DF192C;
-    color: white;
     text-align:center;
-    padding-top:20px;
+    padding-top:10px;
+
 }
 
+.expand{
+    position:absolute;
+    right:5px;
+    top:15px;
+    width:50px;
+    font-size:2em;
+}
 
-.info > div > h4 {
+.info-text > h4 {
     margin:0;
 }
 .bubble{
@@ -43,10 +52,10 @@ body{
     background-size:100% 90px;
     background-repeat:no-repeat;
     margin:auto;
-    margin-top:0;
+    margin-top:10px;
 }
 
-.bubble > div > p {
+.bubble > div >  p {
 
     font-size:1.2em;
     padding: 4px;
@@ -62,18 +71,13 @@ body{
 
 .answers > div > button {
     width:95%;
-    margin-top:10px;
+    margin-top:5px;
     border: 1.5px solid black;
     border-radius:0;
 }
-.robot > div {
-    height:190px;
-    background:url(../img/robotti_v2.png);
-    background-size:contain;
-    background-repeat:no-repeat;
-}
 .robot{
-    padding:0;
+    width:54.5px;
+    margin-left:8px;
 }
 
 .appInfo{
@@ -82,4 +86,33 @@ body{
 
 .appInfo > div{
     display: none;
+}
+
+.napit{
+    height:40px;
+    padding:10px;
+    font-size:1.1em;
+    text-align:center;
+    color:#474747;
+}
+.napit:hover{
+    background-color:#e8e8e8;
+    color:#df192c;
+}
+.napit > p{
+    position:relative;
+    transition: all 0.3s ease-out;
+
+}
+
+.ng-hide{
+    color:rgba(223,25,44, 0);
+}
+.kysymys{
+    background-color:rgba(234, 234, 234, 0.3);
+    height:75px;
+    margin:6px;
+    box-shadow: 0px 0px 1px black;
+    border-radius:2px;
+
 }

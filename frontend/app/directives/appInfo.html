@@ -1,16 +1,12 @@
 <div class="col-md-12 bubble">
     <div>
-        <p>{{chatData.questions[qid].question}}</p>
+        <p ng-if="qid<4">{{chatData.questions[qid].question}}</p>
+        <p ng-if="qid==4">Yrityksesi on {{answers[1]}} {{answers[0]}} alan yritys.</p>
     </div>
 </div>
 <div class="col-md-9 answers">
     <div ng-repeat="answer in chatData.questions[qid].answers">
-        <button class="btn btn-default" ng-click="answerFunction(answer.qid)">{{answer.answer}}</button>
+        <button class="btn btn-default" ng-click="answerFunction(answer.qid, answer.answer)">{{answer.answer}}</button>
     </div>
 </div>
-<div class="col-md-3 robot" ng-click="answerFunction(0)">
-    <div>
-    </div>
-    <!-- <div style="height:140px; background-color:#DF192C; margin-bottom:10px;">
-    </div> -->
-</div>
+<img src="../img/robotti_v2.png" class="robot">
