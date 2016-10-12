@@ -21,11 +21,13 @@ Vagrant.configure("2") do |config|
     PG_VERSION=9.5
 
     apt-get update
+    apt-get install curl
+    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
     apt-get install nodejs -y
     apt-get install npm -y
     apt-get install postgresql-$PG_VERSION -y
 
-    -- Symlink for install node packages with npm.
+    -- Symlink so it is possible to run nodejs using command "node".
     sudo ln -s `which nodejs` /usr/bin/node
 
     -- Setup PostgreSQL.
