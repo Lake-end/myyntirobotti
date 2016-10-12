@@ -1,137 +1,86 @@
 {"questions":[
 {
-  "question": "Miten päiväsi on sujunut?",
+  "question": "Millä alalla yritys toimii?",
   "id": 0,
   "answers": [
     {
-      "answer": "Hyvin",
+      "answer": "Teollisuus",
       "qid": 1
 
     },
     {
-      "answer": "Huonosti",
-      "qid": 2
+      "answer": "ICT",
+      "qid": 1
 
     },
     {
-      "answer": "Kohtalaisesti",
-      "qid": 3
+      "answer": "Palvelu",
+      "qid": 1
 
     },
     {
-      "answer": "En kommentoi",
-      "qid": 4
+      "answer": "Terveydenhuolto",
+      "qid": 1
 
     }
   ]
 },
   {
-    "question": "Mitä teet?",
+    "question": "Miten suuri yritys on?",
     "id": 1,
     "answers": [
       {
-        "answer": "Käyn töissä",
-        "qid": 5
+        "answer": "Pieni",
+        "qid": 2
 
       },
       {
-        "answer": "Opiskelen",
-        "qid": 5
+        "answer": "Keskisuuri",
+        "qid": 2
 
       },
       {
-        "answer": "Olen työtön",
-        "qid": 5
-
-      },
-      {
-        "answer": "En kommentoi",
-        "qid": 5
+        "answer": "Suuri",
+        "qid": 2
 
       }
     ]
   },
   {
-    "question": "Paljon tienaat kuussa",
+    "question": "Onko yrityksellä jo jokin ERP-järjestelmä käytössä?",
     "id": 2,
     "answers": [
       {
-        "answer": "yli 3000€",
-        "qid": 5
+        "answer": "Kyllä",
+        "qid": 4
 
       },
       {
-        "answer": "2000-3000€",
-        "qid": 5
-
-      },
-      {
-        "answer": "1000-2000€",
-        "qid": 5
-
-      },
-      {
-        "answer": "<1000€",
-        "qid": 5
+        "answer": "Ei",
+        "qid": 3
 
       }
     ]
   },
   {
-    "question": "Missä asut",
+    "question": "Onko yrityksellenne suoritettu ERP-tarvekartoitus?",
     "id": 3,
     "answers": [
       {
-        "answer": "Suomessa",
-        "qid": 5
+        "answer": "Kyllä",
+        "qid": 4
 
       },
       {
-        "answer": "Ulkomailla",
-        "qid": 5
-
-      },
-      {
-        "answer": "Virossa",
-        "qid": 5
-
-      },
-      {
-        "answer": "Minulla ei ole kotia ;(",
-        "qid": 5
+        "answer": "Ei",
+        "qid": 4
 
       }
     ]
   },
   {
-    "question": "Miksi?",
+    "question": "Kiitos mielenkiinnosta, olemme yhteydessä.",
     "id": 4,
-    "answers": [
-      {
-        "answer": "Ei tehnyt mieli",
-        "qid": 5
-
-      },
-      {
-        "answer": "En osannut vastata kysymyksiin",
-        "qid": 5
-
-      },
-      {
-        "answer": "En osaa lukea",
-        "qid": 5
-
-      },
-      {
-        "answer": "-",
-        "qid": 5
-
-      }
-    ]
-  },
-  {
-    "question": "Kiitos vastauksista",
-    "id": 5,
     "answers": [
       {
         "answer": "Palaa alkuun",

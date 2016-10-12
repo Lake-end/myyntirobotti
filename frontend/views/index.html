@@ -1,19 +1,40 @@
 <html>
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../styles/style.css">
 </head>
-<body ng-app="myApp">
-<div class="main" ng-controller="MainController">
-    <div class="col-md-12 info" id="clickme">
-        <div>
+<body ng-app="myApp" ng-controller="MainController">
+
+<!--robotiton layout-->
+    <div style="position:absolute; left:20%; bottom:0%; height:255px; width:280px; background-color:rgba(255,255,255,0.9);  border:1px solid #bcbcbc; outline:1px solid transparent;" draggable="true" id="dragme" ondrag="dragFunction()">
+        <div class="kysymys">
+            <p style="padding:5px; font-size:1.1em;">{{kysymys}}</p>
+        </div>
+        <hr align="center" width="95%" style="border-top: 1px solid #bec0c4; margin:0 auto 0 auto;">
+        <div ng-repeat="ala in alat" ng-click="piilotus(ala.qid, ala.answer)">
+            <div class="napit" role="button">
+                <p ng-hide="piilota">{{ala.answer}}</p>
+            </div>
+            <hr align="center" width="95%" style="border-top: 1px solid #bec0c4; margin:0 auto 0 auto;">
+        </div>
+
+</div>
+
+<!--Robotillinen layout-->
+<div class="main main-height">
+    <div class="col-md-12 info">
+        <div class="col-md-12 info-text" style="padding-right:40px;">
             <h4>Hei, olen myyntirobotti!</h4>
             <p>Klikkaa minua jos tarvitset apua.</p>
         </div>
+        <div class="expand" id="clickme">
+            <span class="glyphicon glyphicon-menu-up"></span>
+        </div>
     </div>
     <div class="appInfo" id="book">
-        <div id="testi">
+        <div id="answ">
             <app-info></app-info>
         </div>
     </div>
@@ -24,20 +45,44 @@
 <script src="../app/directives/appInfo.js"></script>
 <script src="../app/services/appService.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
     $(document).ready(function (){
         $("#clickme").on("click", function (){
             if ($("#book").height() == 0) {
                 $("#book").animate(
-                        {height: "360px"});
-                $("#testi").css("display", "block");
+                        {height: "330px"});
+                $("#answ").css("display", "block");
+
             }
-            else if ($("#book").height() == 360) {
-                $("#testi").css("display", "none");
+            else if ($("#book").height() == 330) {
+                $("#answ").css("display", "none");
                 $("#book").animate({height: "0px"});
+
+
             }
         });
     });
+    $( function() {
+        $( "#dragme" ).draggable({containment:"document"});
+    } );
+    function dragFunction(){
+        $("#dragme").removeClass("main-height");
+    }
+    (function($) {
+        $.fn.writeText = function(content) {
+            var contentArray = content.split(""),
+                    current = 0,
+                    elem = this;
+            setInterval(function() {
+                if(current < contentArray.length) {
+                    elem.text(elem.text() + contentArray[current++]);
+                }
+            }, 100);
+        };
+
+    })(jQuery);
+    $("#holder").writeText("This is some text");
 </script>
 </body>
 </html>
