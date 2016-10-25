@@ -1,26 +1,55 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="../app/js/chatheads.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../styles/style.css">
 </head>
 <body ng-app="myApp" ng-controller="MainController">
 
-<!--robotiton layout-->
-    <div style="position:absolute; left:20%; bottom:0%; height:255px; width:280px; background-color:rgba(255,255,255,0.9);  border:1px solid #bcbcbc; outline:1px solid transparent;" draggable="true" id="dragme" ondrag="dragFunction()">
-        <div class="kysymys">
-            <p style="padding:5px; font-size:1.1em;">{{kysymys}}</p>
+<!--chat head-->
+<div class="chat-head" id="chathead">
+    <a class="person"></a>
+    <div class="message" id="msg">
+
+            <div style="position:absolute; left:20%; bottom:0%; height:255px; width:280px; background-color:rgba(255,255,255,0.9);  border:1px solid #bcbcbc; outline:1px solid transparent;"
+                 draggable="true" id="dragme" ondrag="dragFunction()">
+                <div class="kysymys">
+        <p style="padding:5px; font-size:1.1em;">{{kysymys}}</p>
+    </div>
+    <hr align="center" width="95%" style="border-top: 1px solid #bec0c4; margin:0 auto 0 auto;">
+    <div ng-repeat="ala in alat" ng-click="piilotus(ala.qid, ala.answer)">
+        <div class="napit" role="button">
+            <p ng-hide="piilota">{{ala.answer}}</p>
         </div>
         <hr align="center" width="95%" style="border-top: 1px solid #bec0c4; margin:0 auto 0 auto;">
-        <div ng-repeat="ala in alat" ng-click="piilotus(ala.qid, ala.answer)">
-            <div class="napit" role="button">
-                <p ng-hide="piilota">{{ala.answer}}</p>
-            </div>
-            <hr align="center" width="95%" style="border-top: 1px solid #bec0c4; margin:0 auto 0 auto;">
-        </div>
+    </div>
 
 </div>
+
+
+</div>
+</div>
+
+
+<!--robotiton layout-->
+<div style="position:absolute; left:20%; bottom:0%; height:255px; width:280px; background-color:rgba(255,255,255,0.9);  border:1px solid #bcbcbc; outline:1px solid transparent;"
+     draggable="true" id="dragme" ondrag="dragFunction()">
+    <div class="kysymys">
+        <p style="padding:5px; font-size:1.1em;">{{kysymys}}</p>
+    </div>
+    <hr align="center" width="95%" style="border-top: 1px solid #bec0c4; margin:0 auto 0 auto;">
+    <div ng-repeat="ala in alat" ng-click="piilotus(ala.qid, ala.answer)">
+        <div class="napit" role="button">
+            <p ng-hide="piilota">{{ala.answer}}</p>
+        </div>
+        <hr align="center" width="95%" style="border-top: 1px solid #bec0c4; margin:0 auto 0 auto;">
+    </div>
+
+</div>
+
 
 <!--Robotillinen layout-->
 <div class="main main-height">
@@ -47,8 +76,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-    $(document).ready(function (){
-        $("#clickme").on("click", function (){
+    $(document).ready(function () {
+        $("#clickme").on("click", function () {
             if ($("#book").height() == 0) {
                 $("#book").animate(
                         {height: "330px"});
@@ -63,19 +92,19 @@
             }
         });
     });
-    $( function() {
-        $( "#dragme" ).draggable({containment:"document"});
-    } );
-    function dragFunction(){
+    $(function () {
+        $("#dragme").draggable({containment: "document"});
+    });
+    function dragFunction() {
         $("#dragme").removeClass("main-height");
     }
-    (function($) {
-        $.fn.writeText = function(content) {
+    (function ($) {
+        $.fn.writeText = function (content) {
             var contentArray = content.split(""),
                     current = 0,
                     elem = this;
-            setInterval(function() {
-                if(current < contentArray.length) {
+            setInterval(function () {
+                if (current < contentArray.length) {
                     elem.text(elem.text() + contentArray[current++]);
                 }
             }, 100);
@@ -84,5 +113,6 @@
     })(jQuery);
     $("#holder").writeText("This is some text");
 </script>
+<script src="../app/js/chatheads.js"></script>
 </body>
 </html>
