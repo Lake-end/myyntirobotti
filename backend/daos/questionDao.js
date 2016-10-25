@@ -1,16 +1,31 @@
 var db = require ('../database/database');
 
 var Question = require('../models/question');
+var Answer = require('../models/answer');
 
 module.exports = {
+  // Retrieves a single question with its answers
   getQuestion: function (id, callback) {
-    db.one("SELECT * FROM question WHERE id=$1", id)
-      .then(function (data) {
-        var question = new Question(data.id, data.question_text);
-        callback(null, question);
-      })
-      .catch(function (error) {
-        callback(new Error(error, null));
-      });
+    db.any(
+      ` SELECT a.id, q.text AS question, a.text AS answer, qa.next_question FROM Answer a
+        JOIN QuestionAnswer qa ON a.id=qa.answer_id
+        JOIN Question q ON qa.question_id=q.id
+        WHERE q.id=$1`,
+        id
+    ).then(function (data) {
+      var answers = [];
+      var questionText = '';
+
+      for (i = 0; i < data.length; i++) {
+        var answer = new Answer(data[i].id, data[i].answer, data[i].next_question);
+        answers.push(answer);
+
+        questionText = data[i].question;
+      }
+
+      var question = new Question(id, questionText, answers);
+
+      callback(null, question);
+    })
   }
 };

@@ -11,7 +11,7 @@ module.exports = function (app) {
       if (err) {
         res.status(500).send(`Failed to retrieve a question with id: ${req.params.id}`);
       } else {
-        res.send(data);
+        res.json(data.prepareForJSON());
       }
     })
   });
