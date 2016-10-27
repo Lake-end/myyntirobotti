@@ -1,5 +1,5 @@
 NODE_ENV=development
-DATABASE_NAME=myyntirobotti
-DATABASE_USERNAME=myyntirobotti
-DATABASE_PASSWORD=myyntirobotti
+DATABASE_NAME=postgres
+DATABASE_USERNAME=
+DATABASE_PASSWORD=
 DATABASE_HOST=localhost
