@@ -26,7 +26,7 @@ DATABASE_HOST=localhost
 
 ### Backendin ajaminen
 
-Siirry projektin kansioon backend/, ja suorita komento `node indexjs`. Backend toimii portissa 3000 eli API:a kutsutaan seuraavasti: `localhost:3000/komento`, esimerkiksi `localhost:3000/question/1`.
+Siirry projektin kansioon backend/, ja suorita komento `node index.js`. Backend toimii portissa 3000 eli API:a kutsutaan seuraavasti: `localhost:3000/komento`, esimerkiksi `localhost:3000/question/1`.
 
 ### Frontendin ajaminen
 
