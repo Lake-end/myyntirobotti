@@ -3,19 +3,27 @@
  */
 (function($) {
 
-    $('.chat-head').draggable({
-        axis: "y",
-        opacity: 0.8,
-        scroll: false,
-        start: function(event, ui) {
-            ui.helper.bind("click.prevent",
-                function(event) { event.preventDefault(); });
-        },
-        stop: function(event, ui) {
-            setTimeout(function(){
-                ui.helper.unbind("click.prevent");}, 300);
+    /* Chathead JS */
+    $(".chat-head").draggable({
+        opacity: 0.95,
+        scope: "chathead",
+        scroll: true
+    }).on("dragstop", function (e) {
+        var bodyWidth = $(document.body).width(),
+            middle = bodyWidth / 2,
+            $this = $(this),
+            offset = -10;
+        if (middle > e.pageX) {
+            $this.animate({
+                left: -offset
+            });
+        } else {
+            $this.animate({
+                left: bodyWidth + offset - $this.width()
+            });
         }
     });
+
     $('.chat-head').click(function (e) {
 
             var chatMessage = $(this).find('.message');
