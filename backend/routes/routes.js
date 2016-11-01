@@ -1,5 +1,6 @@
 var questionService = require('../services/questionService');
 var sessionService = require('../services/sessionService');
+var SessionNotFoundError = require('../libs/errors/sessionNotFoundError');
 
 module.exports = function (app) {
   app.get('/', function (req, res) {
@@ -11,7 +12,7 @@ module.exports = function (app) {
     questionService.getQuestion(req.params.id, function (err, data) {
       if (err) {
         console.log(err);
-        
+
         res.status(500).send(`Error: Failed to retrieve a question with id: ${req.params.id}`);
       } else {
         res.json(data.prepareForJSON());
@@ -66,7 +67,12 @@ module.exports = function (app) {
         if (err) {
           console.log(err);
 
-          res.status(500).send(`Error: Failed to save the answer with session_id ${sessionId}, question_id ${questionId} and answer_id ${answerId}`);
+          if (err instanceof SessionNotFoundError) {
+            res.status(500).send(err.message);
+          } else {
+            res.status(500).send(`Error: Failed to save the answer with session_id ${sessionId}, question_id ${questionId} and answer_id ${answerId}`);
+          }
+
         } else {
           res.sendStatus(200);
         }

@@ -1,5 +1,6 @@
 var questionDao = require('../daos/questionDao');
 var sessionDao = require('../daos/sessionDao');
+var SessionNotFoundError = require('../libs/errors/sessionNotFoundError');
 
 module.exports = {
   getQuestion: function (id, callback) {
@@ -15,7 +16,7 @@ module.exports = {
     // Check whether the session exists
     sessionDao.getSession(sessionId, function (err, data) {
       if (err) {
-        callback(err);
+        callback(new SessionNotFoundError(sessionId));
       }
     });
 
