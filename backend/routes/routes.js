@@ -1,11 +1,20 @@
 var questionService = require('../services/questionService');
 var sessionService = require('../services/sessionService');
 var SessionNotFoundError = require('../libs/errors/sessionNotFoundError');
+var express = require('express');
 
 module.exports = function (app) {
+  app.use('/js', express.static(__dirname + '../../../frontend/app/js'));
+  app.use('/app', express.static(__dirname + '../../../frontend/app/'));
+  app.use('/controllers', express.static(__dirname + '../../../frontend/app/controllers'));
+  app.use('/directives', express.static(__dirname + '../../../frontend/app/directives'));
+  app.use('/services', express.static(__dirname + '../../../frontend/app/services'));
+  app.use('/styles', express.static(__dirname + '../../../frontend/styles'));
+
   app.get('/', function (req, res) {
-    res.send('The app is up and running.')
+    res.sendFile('index.html', { root: __dirname + '../../../frontend/views/' });
   });
+
 
   // Retrieves a single question with its answers
   app.get('/question/:id', function (req, res) {
