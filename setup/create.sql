@@ -20,7 +20,7 @@ id SERIAL PRIMARY KEY,
 current_question SERIAL REFERENCES Question(id)
 );
 
-CREATE TABLE UserAnswer(
+CREATE TABLE SessionAnswer(
 id SERIAL PRIMARY KEY,
 session_id SERIAL REFERENCES Session(id),
 timestamp TIMESTAMP NOT NULL,
