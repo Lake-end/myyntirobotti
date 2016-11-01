@@ -9,10 +9,7 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
         $scope.answers = [];
         $scope.alat = [];
         $scope.piilota=false;
-        $scope.answerFunction = function(id, answer){
-            $scope.qid = id;
-            $scope.answers.push(answer);
-        }
+
         $scope.kysymys = $scope.chatData.questions[0].question;
         for(var i = 0; i<$scope.chatData.questions[0].answers.length; i++){
             $scope.alat.push($scope.chatData.questions[0].answers[i]);
