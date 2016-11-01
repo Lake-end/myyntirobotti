@@ -27,5 +27,16 @@ module.exports = {
 
       callback(null, question);
     })
+  },
+  
+  saveAnswer: function (sessionId, questionId, answerId, callback) {
+    db.none("INSERT INTO UserAnswer(timestamp, session_id, question_id, answer_id) VALUES ($1, $2, $3, $4)", 
+      [new Date(), sessionId, questionId, answerId])
+      .then(function () {
+        callback();
+      })
+      .catch(function (err) {
+        callback(err);
+      })
   }
 };

@@ -2,7 +2,10 @@
 
 // Set up the app.
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
+
+app.use(bodyParser.json());
 
 // Load environment variables from .env file
 require('dotenv').load();
