@@ -2,7 +2,7 @@
  * Created by a1400223 on 20.9.2016.
  */
 
-app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$interval','$http', function($scope, ChatWindow, $timeout, $log, $interval, $http) {
+app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$interval','$http', '$location', function($scope, ChatWindow, $timeout, $log, $interval, $http, $location) {
     ChatWindow.success(function(data) {
         $scope.data = data;
         $scope.qid = 0;
@@ -11,6 +11,16 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
 
         if(1==2){
             //Tarkistetaan löytyykö sessiota
+            var currentQuestion = 3;
+            $log.info(currentQuestion);
+            $http.get('/question/' + currentQuestion).
+            success(function(data){
+                questionSpell(data.question);
+                $scope.options = data.answers;
+                $log.info(data);
+            }).error(function(err) {
+                $log.info("Tapahtui virhe");
+            })
         }
         else{
             $scope.question = $scope.data.question;
