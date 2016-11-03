@@ -1,5 +1,6 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head>
+    <meta charset="utf-8">
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
     <script src="../app/js/chatheads.js"></script>
@@ -42,12 +43,12 @@
 <div style="position:absolute; left:20%; bottom:0%; height:255px; width:280px; background-color:rgba(255,255,255,0.9);  border:1px solid #bcbcbc; outline:1px solid transparent;"
      draggable="true" id="dragme" ondrag="dragFunction()">
     <div class="kysymys">
-        <p style="padding:5px; font-size:1.1em;">{{kysymys}}</p>
+        <p style="padding:5px; font-size:1.1em;">{{question}}</p>
     </div>
     <hr align="center" width="95%" style="border-top: 1px solid #bec0c4; margin:0 auto 0 auto;">
-    <div ng-repeat="ala in alat" ng-click="piilotus(ala.qid, ala.answer)">
+    <div ng-repeat="option in options" ng-click="answerFunction(option.qid)">
         <div class="napit" role="button">
-            <p ng-hide="piilota">{{ala.answer}}</p>
+            <p ng-hide="hide">{{option.answer}}</p>
         </div>
         <hr align="center" width="95%" style="border-top: 1px solid #bec0c4; margin:0 auto 0 auto;">
     </div>

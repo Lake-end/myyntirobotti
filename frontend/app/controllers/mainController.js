@@ -2,43 +2,46 @@
  * Created by a1400223 on 20.9.2016.
  */
 
-app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$interval', function($scope, ChatWindow, $timeout, $log, $interval) {
+app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$interval','$http', function($scope, ChatWindow, $timeout, $log, $interval, $http) {
     ChatWindow.success(function(data) {
-        $scope.chatData = data;
+        $scope.data = data;
         $scope.qid = 0;
-        $scope.answers = [];
-        $scope.alat = [];
-        $scope.piilota=false;
+        $scope.options = "";
+        $scope.hide=false;
 
-        $scope.kysymys = $scope.chatData.questions[0].question;
-        for(var i = 0; i<$scope.chatData.questions[0].answers.length; i++){
-            $scope.alat.push($scope.chatData.questions[0].answers[i]);
+        if(1==2){
+            //Tarkistetaan löytyykö sessiota
         }
-        var kasvata = function(x){
-            $scope.luku = 1;
-            $scope.kys=x;
-            var kasvu = function(){
-                $scope.kysymys = $scope.kys.substring(0,$scope.luku);
-                $scope.luku = $scope.luku + 1;
+        else{
+            $scope.question = $scope.data.question;
+            $scope.options = $scope.data.answers;
+        }
+
+        $log.info($scope.data);
+
+        var questionSpell = function(x){
+            $scope.num = 1;
+            $scope.que=x;
+            var spell = function(){
+                $scope.question = $scope.que.substring(0,$scope.num);
+                $scope.num++;
             }
-            $interval(kasvu, 30, $scope.kys.length);
+            $interval(spell, 30, $scope.que.length);
         }
 
 
-        $scope.piilotus = function(qid){
-            $scope.piilota = true;
+        $scope.answerFunction = function(qid){
+            $scope.hide = true;
             $timeout(function() {
-                $scope.alat = [];
-                for(var i = 0; i<$scope.chatData.questions.length; i++){
-                    if($scope.chatData.questions[i].id==qid){
-                        kasvata($scope.chatData.questions[i].question);
-                        for(var j = 0; j<$scope.chatData.questions[i].answers.length; j++){
-                            $scope.alat.push($scope.chatData.questions[i].answers[j]);
-                        }
-
-                    }
-                }
-                $scope.piilota = false;
+                $http.get('/question/' + qid).
+                success(function(data){
+                    questionSpell(data.question);
+                    $scope.options = data.answers;
+                    $log.info(data);
+                }).error(function(err) {
+                    $log.info("Tapahtui virhe");
+                })
+                $scope.hide = false;
             }, 400);
         };
 
