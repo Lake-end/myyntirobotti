@@ -76,53 +76,8 @@ body {
 
 }
 
-.expand{
-    position:absolute;
-    right:5px;
-    top:15px;
-    width:50px;
-    font-size:2em;
-}
-
 .info-text > h4 {
     margin:0;
-}
-.bubble{
-    padding:0;
-}
-.bubble > div {
-    width:96%;
-    height:90px;
-    background:url(../img/bubble_v4.png);
-    background-size:100% 90px;
-    background-repeat:no-repeat;
-    margin:auto;
-    margin-top:10px;
-}
-
-.bubble > div >  p {
-
-    font-size:1.2em;
-    padding: 4px;
-}
-
-.answers{
-    padding:0;
-}
-
-.answers > div {
-    text-align:center;
-}
-
-.answers > div > button {
-    width:95%;
-    margin-top:5px;
-    border: 1.5px solid black;
-    border-radius:0;
-}
-.robot{
-    width:54.5px;
-    margin-left:8px;
 }
 
 .appInfo{

@@ -1,10 +1,10 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
-    <script src="../app/js/chatheads.js"></script>
     <script src="../app/app.js"></script>
+    <script src="../app/js/chatheads.js"></script>
     <script src="../app/controllers/mainController.js"></script>
     <script src="../app/directives/appInfo.js"></script>
     <script src="../app/services/appService.js"></script>
@@ -57,42 +57,12 @@
 
 
 <script>
-    $(document).ready(function () {
-        $("#clickme").on("click", function () {
-            if ($("#book").height() == 0) {
-                $("#book").animate(
-                        {height: "330px"});
-                $("#answ").css("display", "block");
-
-            }
-            else if ($("#book").height() == 330) {
-                $("#answ").css("display", "none");
-                $("#book").animate({height: "0px"});
-
-
-            }
-        });
-    });
     $(function () {
         $("#dragme").draggable({containment: "document"});
     });
     function dragFunction() {
         $("#dragme").removeClass("main-height");
     }
-    (function ($) {
-        $.fn.writeText = function (content) {
-            var contentArray = content.split(""),
-                    current = 0,
-                    elem = this;
-            setInterval(function () {
-                if (current < contentArray.length) {
-                    elem.text(elem.text() + contentArray[current++]);
-                }
-            }, 100);
-        };
-
-    })(jQuery);
-    $("#holder").writeText("This is some text");
 </script>
 <script src="../app/js/chatheads.js"></script>
 </body>
