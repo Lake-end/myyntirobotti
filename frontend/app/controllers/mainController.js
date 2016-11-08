@@ -83,5 +83,16 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                 }, 400);
         };
 
+        $scope.clearSession = function() {
+                console.log("asdads");
+                var id = JSON.parse(sessionStorage.getItem("sessionId")).id;
+                   $http.get('/delete-session' + id).
+                   success(function(data) {
+                   $log.info(data);
+                   }).error(function(err) {
+                        $log.info("Tapahtui virhe");
+                   })
+        };
+
     });
 }]);
