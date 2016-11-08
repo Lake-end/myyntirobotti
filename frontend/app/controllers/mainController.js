@@ -13,8 +13,8 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
 
         if(sessionStorage.getItem("sessionId")!=null){
             //Tarkistetaan löytyykö sessiota
-            var currentQuestion = 3;
-            $log.info(currentQuestion);
+            var currentQuestion = 1;
+            $log.info("sessio löytyy");
             $http.get('/question/' + currentQuestion).
             success(function(data){
                 $scope.question = data.question;
@@ -25,14 +25,15 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
             })
         }
         else{
-            //Alla oleva funktio toimii mutta ei palauta mitään, koska backend ei ole täysin toiminnassa
+            //Alla oleva funktio luo uuden session ja tallentaa sen sessionStorageen
 
-            /*$http.get('/create-session').
+            $http.get('/create-session').
             success(function(data){
-                $log.info("t1" + data);
+                sessionStorage.setItem("sessionId", JSON.stringify(data));
+                $log.info(JSON.parse(sessionStorage.getItem("sessionId")));
             }).error(function(data) {
                 $log.info("t2" + data);
-            })*/
+            })
             $scope.question = $scope.data.question;
             $scope.options = $scope.data.answers;
         }
