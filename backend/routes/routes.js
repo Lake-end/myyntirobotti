@@ -1,6 +1,13 @@
 var questionService = require('../services/questionService');
 var sessionService = require('../services/sessionService');
+
+var Answer = require('../models/answer');
+var Question = require('../models/question');
+var Session = require('../models/session');
+var SessionAnswer = require('../models/sessionAnswer');
+
 var SessionNotFoundError = require('../libs/errors/sessionNotFoundError');
+
 var express = require('express');
 
 module.exports = function (app) {
@@ -31,7 +38,9 @@ module.exports = function (app) {
 
   // Creates a session and returns the id.
   app.get('/create-session', function (req, res) {
-    sessionService.createSession(function (err, session) {
+    var ip = req.ip;
+
+    sessionService.createSession(ip, function (err, session) {
       if (err) {
         console.log(err);
 
@@ -87,11 +96,18 @@ module.exports = function (app) {
     var sessionId = body.session_id;
     var questionId = body.question_id;
     var answerId = body.answer_id;
+    var linkClicked = body.link_clicked || false;
 
     if (sessionId == 'undefined' || questionId == 'undefined' || answerId == 'undefined') {
       res.status(500).send('Error: Invalid request parameters')
     } else {
-      questionService.saveAnswer(sessionId, questionId, answerId, function (err) {
+
+      var session = new Session(sessionId);
+      var answer = new Answer(answerId);
+      var question = new Question(questionId);
+      var sessionAnswer = new SessionAnswer(null, null, session, question, answer, linkClicked);
+
+      questionService.saveAnswer(sessionAnswer, function (err) {
         if (err) {
           console.log(err);
 

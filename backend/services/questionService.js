@@ -13,20 +13,21 @@ module.exports = {
     });
   },
 
-  saveAnswer: function (sessionId, questionId, answerId, callback) {
+  saveAnswer: function (sessionAnswer, callback) {
     // Check whether the session exists
-    sessionDao.getSession(sessionId, function (err, data) {
+    sessionDao.getSession(sessionAnswer.session.id, function (err, data) {
       if (err) {
         callback(new SessionNotFoundError(sessionId));
       }
     });
 
-    questionDao.saveAnswer(sessionId, questionId, answerId, function (err, data) {
+    questionDao.saveAnswer(sessionAnswer, function (err, data) {
       if (err) {
         callback(err);
       } else {
-        sessionDao.updateSession(sessionId, questionId);
-        callback();
+        sessionDao.updateSession(sessionAnswer.session.id, sessionAnswer.question.id, function (err, data) {
+          callback(err, data);
+        });
       }
     });
   }

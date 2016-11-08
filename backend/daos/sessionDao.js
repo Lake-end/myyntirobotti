@@ -7,8 +7,8 @@ var Answer = require('../models/answer');
 var SessionNotFoundError = require('../libs/errors/sessionNotFoundError');
 
 module.exports = {
-  createSession: function (callback) {
-    db.one("INSERT INTO Session(current_question) VALUES (1) RETURNING id")
+  createSession: function (ip, callback) {
+    db.one("INSERT INTO Session(ip, current_question) VALUES ($1, 1) RETURNING id", ip)
       .then(function (id) {
         var question = new Question(1);
         var session = new Session(id, question);
@@ -52,9 +52,9 @@ module.exports = {
 
 
   updateSession: function (id, currentQuestion, callback) {
-    db.none("UPDATE Session SET current_question = $1 WHERE id = $2", currentQuestion, id)
+    db.none("UPDATE Session SET current_question = $1 WHERE id = $2", [currentQuestion, id])
       .then(function (data) {
-        callback();
+        callback(null, data);
       })
       .catch(function (err) {
         callback(err);

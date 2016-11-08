@@ -1,8 +1,8 @@
 var sessionDao = require('../daos/sessionDao');
 
 module.exports = {
-  createSession: function (callback) {
-    sessionDao.createSession(function (err, session) {
+  createSession: function (ip, callback) {
+    sessionDao.createSession(ip, function (err, session) {
       if (err) {
         callback(err);
       } else {
