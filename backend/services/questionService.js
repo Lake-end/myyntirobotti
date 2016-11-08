@@ -12,6 +12,7 @@ module.exports = {
       }
     });
   },
+
   saveAnswer: function (sessionId, questionId, answerId, callback) {
     // Check whether the session exists
     sessionDao.getSession(sessionId, function (err, data) {
