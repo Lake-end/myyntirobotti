@@ -42,6 +42,11 @@
 <!--robotiton layout-->
 <div style="position:absolute; left:20%; bottom:0%; height:255px; width:280px; background-color:rgba(255,255,255,0.9);  border:1px solid #bcbcbc; outline:1px solid transparent;"
      draggable="true" id="dragme" ondrag="dragFunction()">
+    <div id="clear">
+        <div id="glyph" role="button" ng-click="clearSession()">
+            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+        </div>
+    </div>
     <div class="kysymys">
         <p style="padding:5px; font-size:1.1em;">{{question}}</p>
     </div>
