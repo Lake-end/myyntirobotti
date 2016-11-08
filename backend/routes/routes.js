@@ -1,5 +1,6 @@
 var questionService = require('../services/questionService');
 var sessionService = require('../services/sessionService');
+var emailService = require('../services/emailService');
 
 var Answer = require('../models/answer');
 var Question = require('../models/question');
@@ -124,4 +125,9 @@ question_id ${questionId} and answer_id ${answerId}`);
       });
     }
   });
+
+  app.get('/send-contact-request', function (req, res) {
+    emailService.sendContactMail();
+          res.sendStatus(200);
+  })
 };

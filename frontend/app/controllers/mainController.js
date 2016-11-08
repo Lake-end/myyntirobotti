@@ -8,31 +8,35 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
         $scope.qid = 0;
         $scope.options = "";
         $scope.hide=false;
+        $scope.id=0;
 
         //if lause ajetaa, jos on olemassa "sessionId" niminen sessio. sessio luodaan metodilla: sessionStorage.setItem("nimi", "arvo");
 
         if(sessionStorage.getItem("sessionId")!=null){
             //Tarkistetaan löytyykö sessiota
-            var currentQuestion = 3;
-            $log.info(currentQuestion);
+            var currentQuestion = 1;
+            $log.info("sessio löytyy");
             $http.get('/question/' + currentQuestion).
             success(function(data){
                 $scope.question = data.question;
                 $scope.options = data.answers;
+                $scope.id=$scope.data.id;
                 $log.info(data);
             }).error(function(err) {
                 $log.info("Tapahtui virhe");
             })
         }
         else{
-            //Alla oleva funktio toimii mutta ei palauta mitään, koska backend ei ole täysin toiminnassa
+            //Alla oleva funktio luo uuden session ja tallentaa sen sessionStorageen
 
-            /*$http.get('/create-session').
+            $http.get('/create-session').
             success(function(data){
-                $log.info("t1" + data);
+                sessionStorage.setItem("sessionId", JSON.stringify(data));
+                $log.info(JSON.parse(sessionStorage.getItem("sessionId")));
             }).error(function(data) {
                 $log.info("t2" + data);
-            })*/
+            })
+            $scope.id=$scope.data.id;
             $scope.question = $scope.data.question;
             $scope.options = $scope.data.answers;
         }
@@ -50,19 +54,44 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
         }
 
 
-        $scope.answerFunction = function(qid){
-            $scope.hide = true;
-            $timeout(function() {
-                $http.get('/question/' + qid).
-                success(function(data){
-                    questionSpell(data.question);
-                    $scope.options = data.answers;
-                    $log.info(data);
-                }).error(function(err) {
-                    $log.info("Tapahtui virhe");
-                })
-                $scope.hide = false;
-            }, 400);
+        $scope.answerFunction = function(qid, aid){
+
+
+
+            var answer = JSON.stringify({session_id:JSON.parse(sessionStorage.getItem("sessionId")).id, question_id:$scope.id, answer_id:aid});
+
+            $log.info(answer);
+
+            $http.post('/save-answer/', answer).success(function (data) {
+                $log.info(data);
+            }).error(function (err) {
+                $log.info("Tapahtui virhe");
+            })
+
+
+                $scope.hide = true;
+                $timeout(function () {
+                    $http.get('/question/' + qid).success(function (data) {
+                        $scope.id = data.id;
+                        questionSpell(data.question);
+                        $scope.options = data.answers;
+                        $log.info(data);
+                    }).error(function (err) {
+                        $log.info("Tapahtui virhe");
+                    })
+                    $scope.hide = false;
+                }, 400);
+        };
+
+        $scope.clearSession = function() {
+                console.log("asdads");
+                var id = JSON.parse(sessionStorage.getItem("sessionId")).id;
+                   $http.get('/delete-session' + id).
+                   success(function(data) {
+                   $log.info(data);
+                   }).error(function(err) {
+                        $log.info("Tapahtui virhe");
+                   })
         };
 
     });
