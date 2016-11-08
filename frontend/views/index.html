@@ -46,7 +46,7 @@
         <p style="padding:5px; font-size:1.1em;">{{question}}</p>
     </div>
     <hr align="center" width="95%" style="border-top: 1px solid #bec0c4; margin:0 auto 0 auto;">
-    <div ng-repeat="option in options" ng-click="answerFunction(option.qid)">
+    <div ng-repeat="option in options" ng-click="answerFunction(option.qid, option.id)">
         <div class="napit" role="button">
             <p ng-hide="hide">{{option.answer}}</p>
         </div>
