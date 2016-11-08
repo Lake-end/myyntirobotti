@@ -13,18 +13,31 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
         //if lause ajetaa, jos on olemassa "sessionId" niminen sessio. sessio luodaan metodilla: sessionStorage.setItem("nimi", "arvo");
 
         if(sessionStorage.getItem("sessionId")!=null){
-            //Tarkistetaan löytyykö sessiota
-            var currentQuestion = 1;
             $log.info("sessio löytyy");
-            $http.get('/question/' + currentQuestion).
+
+            //Tarkistetaan löytyykö sessiota
+
+            var id = JSON.parse(sessionStorage.getItem("sessionId")).id;
+
+            $http.get('/get-session/' + id).
             success(function(data){
-                $scope.question = data.question;
-                $scope.options = data.answers;
-                $scope.id=$scope.data.id;
+
+                //Haetaan kysymys, johon käyttäjä jäi
+
+                $http.get('/question/' + data.current_question).
+                success(function(data){
+                    $scope.question = data.question;
+                    $scope.options = data.answers;
+                    $scope.id=$scope.data.id;
+                }).error(function(err) {
+                    $log.info("Tapahtui virhe");
+                })
                 $log.info(data);
+
             }).error(function(err) {
                 $log.info("Tapahtui virhe");
             })
+
         }
         else{
             //Alla oleva funktio luo uuden session ja tallentaa sen sessionStorageen
@@ -56,8 +69,6 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
 
         $scope.answerFunction = function(qid, aid){
 
-
-
             var answer = JSON.stringify({session_id:JSON.parse(sessionStorage.getItem("sessionId")).id, question_id:$scope.id, answer_id:aid});
 
             $log.info(answer);
@@ -84,9 +95,9 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
         };
 
         $scope.clearSession = function() {
-                console.log("asdads");
                 var id = JSON.parse(sessionStorage.getItem("sessionId")).id;
-                   $http.get('/delete-session' + id).
+                    sessionStorage.clear();
+                   $http.get('/delete-session/' + id).
                    success(function(data) {
                    $log.info(data);
                    }).error(function(err) {
