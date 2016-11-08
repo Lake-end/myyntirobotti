@@ -1,5 +1,6 @@
 var questionService = require('../services/questionService');
 var sessionService = require('../services/sessionService');
+var emailService = require('../services/emailService');
 var SessionNotFoundError = require('../libs/errors/sessionNotFoundError');
 var express = require('express');
 
@@ -108,4 +109,9 @@ question_id ${questionId} and answer_id ${answerId}`);
       });
     }
   });
+
+  app.get('/send-contact-request', function (req, res) {
+    emailService.sendContactMail();
+          res.sendStatus(200);
+  })
 };
