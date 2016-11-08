@@ -23,7 +23,7 @@ module.exports = {
         var answer = new Answer(data[i].id, data[i].answer, data[i].next_question);
         answers.push(answer);
 
-        questionText = data[i].question;
+        questionText = data[i].text;
         containsLink = data[i].contains_link;
       }
 
