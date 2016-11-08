@@ -27,6 +27,9 @@ module.exports = {
 
       callback(null, question);
     })
+    .catch(function (err) {
+      callback(err);
+    })
   },
   
   saveAnswer: function (sessionId, questionId, answerId, callback) {

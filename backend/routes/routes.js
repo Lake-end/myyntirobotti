@@ -42,6 +42,25 @@ module.exports = function (app) {
     })
   });
 
+  app.get('/get-session/:id', function (req, res) {
+    var id = req.params.id;
+
+    sessionService.getSession(id, function (err, session) {
+      if (err) {
+        console.log(err);
+
+        if (err instanceof SessionNotFoundError) {
+          res.status(500).send(err.message);
+        } else {
+          res.status(500).send(`Error: Failed to retrieve a session with id ${id}`);
+        }
+
+      } else {
+        res.json(session.prepareForJSON());
+      }
+    });
+  });
+
   app.get('/delete-session/:id', function (req, res) {
     sessionService.deleteSession(req.params.id, function (err) {
       if (err) {
@@ -52,7 +71,7 @@ module.exports = function (app) {
         res.sendStatus(200);
       }
     }); 
-  })
+  });
 
   /* 
   * Saves the user's current answer.
@@ -79,7 +98,8 @@ module.exports = function (app) {
           if (err instanceof SessionNotFoundError) {
             res.status(500).send(err.message);
           } else {
-            res.status(500).send(`Error: Failed to save the answer with session_id ${sessionId}, question_id ${questionId} and answer_id ${answerId}`);
+            res.status(500).send(`Error: Failed to save the answer with session_id ${sessionId}, \
+question_id ${questionId} and answer_id ${answerId}`);
           }
 
         } else {
