@@ -24,7 +24,7 @@ current_question SERIAL REFERENCES Question(id)
 
 CREATE TABLE SessionAnswer (
 id SERIAL PRIMARY KEY,
-session_id SERIAL REFERENCES Session(id),
+session_id INT REFERENCES Session(id),
 timestamp TIMESTAMP NOT NULL,
 question_id SERIAL REFERENCES Question(id),
 answer_id SERIAL REFERENCES Answer(id),
