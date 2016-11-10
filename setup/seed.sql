@@ -1,40 +1,60 @@
 INSERT INTO Question (id, text)
 VALUES 
-(1, 'Ensimmäisen tason kysymys?'),
-(2, 'Toisen tason kysymys?'),
-(3, 'Toisen tason toinen kysymys?'),
-(4, 'Kolmas kysymys?'),
-(1000, 'Ostopäätösloppu'),
-(1500, 'Yhteydenottopyyntö'),
-(1501, 'Sähköpostiloppu'),
-(1502, 'Puheluloppu'),
-(2000, 'EVVK-loppu');
+ (1, 'Mikä on yrityksenne toimiala?')
+,(2, 'Minkä kokoinen yrityksenne on?')
+,(3, 'Miten suuri on yrityksenne liikevaihto?')
+,(4, 'Mikä on asemasi yrityksessä?')
+,(5, 'Millainen toiminnallisuus on ERP-ratkaisullesi tärkeintä?')
+,(6, 'Suosittelemme teille ratkaisuamme Digia Logistics, enemmän näkyvyyttä kansainvälisille kuljetusketjuille')
+,(60, 'Suosittelemme teille Digia Enterprise -ratkaisuamme, joka on rahoituksen johtamisohjelma')
+,(8, 'Tässä hieman muiden asiakkaidemme kokemuksia Digia Logisticsistä')
+,(80, 'Tässä hieman muiden asiakkaidemme kokemuksia Digia Enterprisestä')
+,(1000, 'Täytä yhteystietosi, jotta voimme kertoa sinulle lisää!');
 
 INSERT INTO Answer (id, text) 
-VALUES 
-(1, 'Ahaa, kerro lisää'),
-(2, 'Hmm hmm.'),
-(3, 'Kiehtovaa.'),
-(1000, 'Kyllä, ostan!'),
-(1500, 'Tahdon lisätietoa myyjältänne!'),
-(1501, 'Sähköpostitse'),
-(1502, 'Puhelimitse'),
-(2000, 'En tahdo tätä.');
+VALUES
+ (11, 'Tukkumyynti')
+,(12, 'Vähittäiskauppa')
+,(21, 'Pieni (alle 50 työntekijää')
+,(22, 'Keskikokoinen (50-249 työntekijää)')
+,(23, 'Suuri (yli 250 työntekijää)')
+,(31, 'Alle 5 miljoonaa € vuodessa')
+,(32, '5-20 miljoonaa € vuodessa')
+,(33, 'Yli 20 miljoonaa € vuodessa')
+,(34, 'En mielelläni sano')
+,(41, 'Toimitusjohtaja')
+,(42, 'Talousjohtaja')
+,(43, 'Markkinointijohtaja')
+,(44, 'Logistiikkajohtaja')
+,(51, 'Nopea toimitus ja käyttöönotto')
+,(52, 'Operatiivisten tehtävien ajanhallinta')
+,(53, 'Arvoketjujen tehokkuus')
+,(54, 'Kuluttajan palautelähtöinen ymmärtäminen')
+,(61, 'Tämä vaikuttaa hyvältä. Kuinka voin saada lisätietoa?')
+,(62, 'Mitä muuta voitte minulle tarjota?')
+,(1001, 'Dummy answer (ei pitäisi näkyä)');
 
 INSERT INTO QuestionAnswer (question_id, answer_id, next_question)
 VALUES
-(1, 1, 2),
-(1, 2, 3),
-(1, 1000, 1000),
-(1, 2000, 2000),
-(2, 3, 4),
-(2, 1, 4),
-(2, 1000, 1000),
-(2, 2000, 2000),
-(3, 2, 4),
-(3, 3, 4),
-(4, 1000, 1000),
-(4, 1500, 1500),
-(4, 2000, 2000),
-(1500, 1501, 1501),
-(1500, 1502, 1502);
+ (1, 11, 2)
+,(1, 12, 2)
+,(2, 21, 3)
+,(2, 22, 3)
+,(2, 23, 3)
+,(3, 31, 4)
+,(3, 32, 4)
+,(3, 33, 4)
+,(3, 34, 4)
+,(4, 41, 5)
+,(4, 42, 5)
+,(4, 43, 5)
+,(4, 44, 5)
+,(5, 51, 6)
+,(5, 52, 6)
+,(5, 53, 6)
+,(5, 54, 6)
+,(6, 61, 1000)
+,(6, 62, 60)
+,(60, 61, 1000)
+,(60, 62, 6)
+,(1000, 1001, 1);
