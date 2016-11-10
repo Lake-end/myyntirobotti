@@ -58,15 +58,18 @@
             }
         }
             chatMessage.toggle(100);
+            $('#bubble').remove();
     });
     $('#msg').on("click", function() {
         return false;
     });
 
+
     $(document).ready(function() {
         var chats = $('.chat-head');
         chats.each(function(i) {
             $(chats[i]).css('top', i*60);
+            $('#bubble').delay(3000).fadeOut();
         });
     });
 })(jQuery);
