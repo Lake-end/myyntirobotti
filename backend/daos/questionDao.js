@@ -2,13 +2,12 @@ var db = require ('../database/database');
 
 var Question = require('../models/question');
 var Answer = require('../models/answer');
-
 var SessionAnswer = require('../models/sessionAnswer');
 
 module.exports = {
   // Retrieves a single question with its answers
   getQuestion: function (id, callback) {
-    db.any(
+    db.many(
       ` SELECT a.id, q.text, q.contains_link AS question, a.text AS answer, qa.next_question FROM Answer a
         JOIN QuestionAnswer qa ON a.id=qa.answer_id
         JOIN Question q ON qa.question_id=q.id

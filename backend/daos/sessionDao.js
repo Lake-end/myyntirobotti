@@ -24,7 +24,7 @@ module.exports = {
       `SELECT s.id, s.current_question, sa.answer_id FROM Session s
       LEFT JOIN SessionAnswer sa ON sa.session_id = s.id
       WHERE s.id = $1
-      ORDER BY sa.timestamp`, 
+      ORDER BY sa.timestamp`,
       id
     )
       .then(function (data) {
@@ -49,7 +49,6 @@ module.exports = {
         callback(err);
       })
   },
-
 
   updateSession: function (id, currentQuestion, callback) {
     db.none("UPDATE Session SET current_question = $1 WHERE id = $2", [currentQuestion, id])
