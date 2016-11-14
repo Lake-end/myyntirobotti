@@ -43,6 +43,11 @@ Vagrant.configure("2") do |config|
       LC_CTYPE='en_US.utf8'
       ENCODING='UTF8'
       TEMPLATE=template0;
+    CREATE DATABASE myyntirobotti_test WITH OWNER=myyntirobotti
+      LC_COLLATE='en_US.utf8'
+      LC_CTYPE='en_US.utf8'
+      ENCODING='UTF8'
+      TEMPLATE=template0;
 EOF
   SHELL
 

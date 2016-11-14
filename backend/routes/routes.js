@@ -80,10 +80,10 @@ module.exports = function (app) {
       } else {
         res.sendStatus(200);
       }
-    }); 
+    });
   });
 
-  /* 
+  /*
   * Saves the user's current answer.
   * Example request:
   *   {
