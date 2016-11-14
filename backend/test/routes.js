@@ -58,10 +58,34 @@ describe('Routing', function() {
 
   describe('Session', function() {
 
-    var sessionId;
+    it('should create a session and return it', function(done) {
+      var agent = request(url);
+
+      var sessionId;
+
+      agent.get('/create-session')
+      .expect(function(res) {
+        sessionId = res.body.id;
+      })
+      .end(function() {
+        agent.get('/get-session/' + sessionId)
+        .end(function(err, res) {
+          if (err) {
+            throw err;
+          } else {
+            res.body.id.should.be.exactly(sessionId)
+            done();
+          }
+        })
+
+      })
+    })
 
     it('should create a session, save an answer using the session and finally delete the session', function(done) {
       var agent = request(url);
+
+      var sessionId;
+
       agent
         .get('/create-session')
         .expect(function(res) {
