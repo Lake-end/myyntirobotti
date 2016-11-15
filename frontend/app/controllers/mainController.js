@@ -112,6 +112,7 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                         $scope.id = data.id;
                         if(data.id==1000){
                             $scope.form = true;
+                            questionSpell(data.question);
                         }
                         else{
                             $scope.alku = data.question.search("http");

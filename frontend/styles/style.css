@@ -220,6 +220,11 @@ height:5%;
     cursor: pointer;
 }
 
+.glyphicon-remove:hover{
+
+    color:#df192c;
+}
+
 .form-horizontal .form-group{
     margin:7px 0;
 }
