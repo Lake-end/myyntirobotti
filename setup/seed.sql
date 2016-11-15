@@ -1,21 +1,21 @@
 INSERT INTO Question (id, text)
-VALUES 
+VALUES
  (1, 'Mikä on yrityksenne toimiala?')
 ,(2, 'Minkä kokoinen yrityksenne on?')
 ,(3, 'Miten suuri on yrityksenne liikevaihto?')
 ,(4, 'Mikä on asemasi yrityksessä?')
 ,(5, 'Millainen toiminnallisuus on ERP-ratkaisullesi tärkeintä?')
-,(6, 'Suosittelemme teille ratkaisuamme Digia Logistics, enemmän näkyvyyttä kansainvälisille kuljetusketjuille')
-,(60, 'Suosittelemme teille Digia Enterprise -ratkaisuamme, joka on rahoituksen johtamisohjelma')
-,(8, 'Tässä hieman muiden asiakkaidemme kokemuksia Digia Logisticsistä')
-,(80, 'Tässä hieman muiden asiakkaidemme kokemuksia Digia Enterprisestä')
+,(6, 'Suosittelemme teille ratkaisuamme Digia Logistics -- enemmän näkyvyyttä kansainvälisille kuljetusketjuille')
+,(60, 'Suosittelemme teille Digia Enterprise -- monipuolinen, suomalainen toiminnan- ja talousohjausjärjestelmä')
+,(8, 'Tässä hieman muiden asiakkaidemme kokemuksia Digia Logisticsista')
+,(80, 'Tässä hieman muiden asiakkaidemme kokemuksia Digia Enterprisesta')
 ,(1000, 'Täytä yhteystietosi, jotta voimme kertoa sinulle lisää!');
 
-INSERT INTO Answer (id, text) 
+INSERT INTO Answer (id, text)
 VALUES
  (11, 'Tukkumyynti')
 ,(12, 'Vähittäiskauppa')
-,(21, 'Pieni (alle 50 työntekijää')
+,(21, 'Pieni (alle 50 työntekijää)')
 ,(22, 'Keskikokoinen (50-249 työntekijää)')
 ,(23, 'Suuri (yli 250 työntekijää)')
 ,(31, 'Alle 5 miljoonaa € vuodessa')
@@ -26,6 +26,7 @@ VALUES
 ,(42, 'Talousjohtaja')
 ,(43, 'Markkinointijohtaja')
 ,(44, 'Logistiikkajohtaja')
+,(45, 'Muu')
 ,(51, 'Nopea toimitus ja käyttöönotto')
 ,(52, 'Operatiivisten tehtävien ajanhallinta')
 ,(53, 'Arvoketjujen tehokkuus')
@@ -58,3 +59,21 @@ VALUES
 ,(60, 61, 1000)
 ,(60, 62, 6)
 ,(1000, 1001, 1);
+
+INSERT INTO Session (id, ip, current_question)
+VALUES
+ (1, '127.0.0.1', 1000);
+
+INSERT INTO SessionAnswer (id, session_id, "timestamp", question_id, answer_id, link_clicked)
+VALUES
+ (1, 1, '2016-11-15 07:56:38', 1, 11, null)
+,(2, 1, '2016-11-15 07:56:38', 2, 22, null)
+,(3, 1, '2016-11-15 07:56:39', 3, 32, null)
+,(4, 1, '2016-11-15 07:56:41', 4, 41, null)
+,(5, 1, '2016-11-15 07:56:44', 5, 53, null)
+,(6, 1, '2016-11-15 07:56:49', 6, 61, null)
+,(7, 1, '2016-11-15 07:57:31', 1000, 1001, null);
+
+INSERT INTO Contact (id, session_id, timestamp, name, surname, phone, email, organisation, comments)
+VALUES
+ (1, 1, '2016-11-15 07:57:31', 'Myynti', 'Robotti', '013-131313', 'myyntirobotti@gmail.com', 'Haaga-Helia AMK', 'Hei maailma!');

@@ -1,3 +1,10 @@
+DROP TABLE IF EXISTS SessionAnswer;
+DROP TABLE IF EXISTS Contact;
+DROP TABLE IF EXISTS Session;
+DROP TABLE IF EXISTS QuestionAnswer;
+DROP TABLE IF EXISTS Answer;
+DROP TABLE IF EXISTS Question;
+
 CREATE TABLE Question (
 id serial primary key,
 text VARCHAR(200) not null,
@@ -35,10 +42,10 @@ CREATE TABLE Contact (
 id SERIAL PRIMARY KEY,
 session_id INT REFERENCES Session(id),
 timestamp TIMESTAMP NOT NULL,
-name VARCHAR(100) NOT NULL,
-surname VARCHAR(100) NOT NULL,
-phone VARCHAR(100),
-email VARCHAR(100),
+name VARCHAR(30) NOT NULL,
+surname VARCHAR(30) NOT NULL,
+phone VARCHAR(20),
+email VARCHAR(60),
 organisation VARCHAR(100) NOT NULL,
 comments VARCHAR(255)
 );

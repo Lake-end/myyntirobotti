@@ -64,45 +64,37 @@ body {
     margin:0;
 }
 
-.bubble
-{
+
+.bubble {
     position: relative;
-    width: 230px;
-    height: 125px;
-    padding: 5px;
-    background: #FFFFFF;
-    -webkit-border-radius: 13px;
-    -moz-border-radius: 13px;
-    border-radius: 13px;
-    border: #447F4B solid 3px;
+    right:280px;
+    bottom:80px;
+    width: 250px;
+    height: 120px;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 0px;
+    background: #c9c9c9;
+    border-radius: 10px;
 }
 
-.bubble:after
-{
+.bubble:after {
     content: '';
     position: absolute;
     border-style: solid;
-    border-width: 22px 0 22px 25px;
-    border-color: transparent #FFFFFF;
+    border-width: 15px 0 15px 15px;
+    border-color: transparent #c9c9c9;
     display: block;
     width: 0;
     z-index: 1;
-    right: -25px;
+    right: -15px;
     top: 45px;
 }
 
-.bubble:before
-{
-    content: '';
-    position: absolute;
-    border-style: solid;
-    border-width: 24px 0 24px 27px;
-    border-color: transparent #447F4B;
-    display: block;
-    width: 0;
-    z-index: 0;
-    right: -30px;
-    top: 43px;
+#bubble-text {
+    padding:5px;
+    font-size:18;
+    padding-top:32px;
 }
 
 .appInfo{
@@ -221,4 +213,8 @@ height:5%;
 .panel-group{
     margin:0;
     background-color:transparent;
+}
+
+.glyphicon-remove, .glyphicon-chevron-left{
+    cursor: pointer;
 }
