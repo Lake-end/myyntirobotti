@@ -22,7 +22,7 @@
 
     }).on("dragstop", function (e) {
         var $this = $(this);
-
+        $('#bubble').remove();
         if(middleY < e.pageY){
             box.style.bottom = "600%";
             }
@@ -48,6 +48,7 @@
 
     $('.chat-head').click(function (e) {
         var chatMessage = $(this).find('.message');
+        $('#bubble').remove();
         if (!chatMessage.is(':visible')) {
             $('.message:visible').hide();
             if(e.pageX > middle){
@@ -63,13 +64,16 @@
     $('#msg').on("click", function() {
         return false;
     });
+    $('.chat-head').on("drag", function() {
+        $('#bubble').remove();
+    });
 
 
     $(document).ready(function() {
         var chats = $('.chat-head');
         chats.each(function(i) {
-            $(chats[i]).css('top', i*60);
-            $('#bubble').delay(3000).fadeOut();
+            $(chats[i]).css('top', i*60+50);
+            $('#bubble').delay(5000).fadeOut();
         });
     });
 })(jQuery);
