@@ -15,7 +15,7 @@ body {
 }
 
 .chat-head .person {
-    background:url('../img/robothead_smaller.png');
+    background:url('http://i.imgur.com/Kf46Pvb.png');
     cursor: pointer;
     display: block;
     width: 100%;
