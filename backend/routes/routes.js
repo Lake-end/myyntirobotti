@@ -56,8 +56,9 @@ module.exports = function (app) {
 
   app.get('/get-session/:id', function (req, res) {
     var id = req.params.id;
+    var ip = req.ip;
 
-    sessionService.getSession(id, function (err, session) {
+    sessionService.getSession(id, ip, function (err, session) {
       if (err) {
         console.log(err);
 
