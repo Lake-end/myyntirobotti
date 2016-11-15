@@ -15,7 +15,7 @@ body {
 }
 
 .chat-head .person {
-    background:url('../img/robothead_smaller.png');
+    background:url('http://i.imgur.com/Kf46Pvb.png');
     cursor: pointer;
     display: block;
     width: 100%;
@@ -114,12 +114,18 @@ body {
 }
 
 .buttons{
-    height:40px;
+    min-height:40px;
     padding:10px;
     font-size:1.1em;
     text-align:center;
     color:#474747;
 }
+
+p.ng-binding{
+    margin:0;
+    padding:0;
+}
+
 .buttons:hover{
     background-color:#e8e8e8;
     color:#df192c;
