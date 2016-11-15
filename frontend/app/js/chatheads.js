@@ -73,7 +73,7 @@
         var chats = $('.chat-head');
         chats.each(function(i) {
             $(chats[i]).css('top', i*60+50);
-            $('#bubble').delay(5000).fadeOut();
+            $('#bubble').delay(8000).fadeOut();
         });
     });
 })(jQuery);

@@ -15,7 +15,7 @@ body {
 }
 
 .chat-head .person {
-    background:url('http://i.imgur.com/Kf46Pvb.png');
+    background:url('https://i.imgur.com/fORwSWL.png');
     cursor: pointer;
     display: block;
     width: 100%;
@@ -95,6 +95,7 @@ body {
     padding:5px;
     font-size:18;
     padding-top:32px;
+    font-family:roboto;
 }
 
 .appInfo{
@@ -106,7 +107,7 @@ body {
 }
 
 .buttons{
-    min-height:40px;
+    min-height:45px;
     padding:10px;
     font-size:1.1em;
     text-align:center;
@@ -217,4 +218,17 @@ height:5%;
 
 .glyphicon-remove, .glyphicon-chevron-left{
     cursor: pointer;
+}
+
+.glyphicon-remove:hover{
+
+    color:#df192c;
+}
+
+.form-horizontal .form-group{
+    margin:7px 0;
+}
+.form-control {
+    width:97%;
+    margin:auto;
 }

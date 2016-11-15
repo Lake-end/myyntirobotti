@@ -1,5 +1,7 @@
 /**
+
  * Created by a1400223 on 20.9.2016.
+
  */
 
 app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$interval','$http', function($scope, ChatWindow, $timeout, $log, $interval, $http) {
@@ -9,35 +11,52 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
         $scope.options = "";
         $scope.hide=false;
         $scope.id=0;
+        $scope.form = false;
+        $scope.formData = {};
 
         //if lause ajetaa, jos on olemassa "sessionId" niminen sessio. sessio luodaan metodilla: sessionStorage.setItem("nimi", "arvo");
-
         if(sessionStorage.getItem("sessionId")!=null){
             $log.info("sessio löytyy");
-
             //Tarkistetaan löytyykö sessiota
-
             var id = JSON.parse(sessionStorage.getItem("sessionId")).id;
-
             $http.get('/get-session/' + id).
             success(function(data){
-
                 //Haetaan kysymys, johon käyttäjä jäi
-
                 $http.get('/question/' + data.current_question).
                 success(function(data){
-                    $scope.question = data.question;
+
+                if(data.id==1000){
+                    $scope.form = true;
+                }
+                else{
+
+                    $scope.alku = data.question.search("http");
+                    // Jos linkistä löytyy 'http', laitetaan <a href='...'>...</a>
+                    if($scope.alku > -1){
+                        if(data.question.search(".fi") == -1){
+                            $scope.loppu = data.question.search(".com") + 4;
+                        } else if(data.question.search(".com") == -1){
+                            $scope.loppu = data.question.search(".fi") + 3;
+                        }
+                        $scope.testi = data.question;
+                        $scope.question = $scope.testi.substring(0, $scope.alku) + "<a href='" + $scope.testi.substring($scope.alku, $scope.loppu) + "'>" + $scope.testi.substring($scope.alku, $scope.loppu) + "</a>" + $scope.testi.substring($scope.loppu);
+                    }
+                    // Jos ei löydy 'http', kysymys kirjoitetaan normaalisti
+                    else{
+                        $scope.question = data.question;
+                    }
+                    $scope.form = false;
                     $scope.options = data.answers;
                     $scope.id=$scope.data.id;
+                }
+
                 }).error(function(err) {
                     $log.info("Tapahtui virhe");
                 })
                 $log.info(data);
-
             }).error(function(err) {
                 $log.info("Tapahtui virhe");
             })
-
         }
         else{
             //Alla oleva funktio luo uuden session ja tallentaa sen sessionStorageen
@@ -53,7 +72,6 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
             $scope.question = $scope.data.question;
             $scope.options = $scope.data.answers;
         }
-
         $log.info($scope.data);
 
         var questionSpell = function(x){
@@ -66,27 +84,55 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
             $interval(spell, 30, $scope.que.length);
         }
 
+        $scope.formSubmit = function(){
+
+            $scope.formData.session_id = JSON.parse(sessionStorage.getItem("sessionId")).id;
+
+            $http.post('/send-contact-request/', $scope.formData).success(function (data) {
+                $log.info(data);
+            }).error(function (err) {
+                $log.info("Tapahtui virhe");
+            })
+
+            $scope.answerFunction(1,1001);
+        }
 
         $scope.answerFunction = function(qid, aid){
-
             var answer = JSON.stringify({session_id:JSON.parse(sessionStorage.getItem("sessionId")).id, question_id:$scope.id, answer_id:aid});
-
             $log.info(answer);
-
             $http.post('/save-answer/', answer).success(function (data) {
                 $log.info(data);
             }).error(function (err) {
                 $log.info("Tapahtui virhe");
             })
 
-
                 $scope.hide = true;
                 $timeout(function () {
                     $http.get('/question/' + qid).success(function (data) {
                         $scope.id = data.id;
-                        questionSpell(data.question);
-                        $scope.options = data.answers;
-                        $log.info(data);
+                        if(data.id==1000){
+                            $scope.form = true;
+                            questionSpell(data.question);
+                        }
+                        else{
+                            $scope.alku = data.question.search("http");
+                            if($scope.alku > -1){
+                                $log.info("alku: " + $scope.alku);
+                                if(data.question.search(".fi") == -1){
+                                    $scope.loppu = data.question.search(".com") + 4;
+                                } else if(data.question.search(".com") == -1){
+                                    $scope.loppu = data.question.search(".fi") + 3;
+                                }
+                                $scope.testi = data.question;
+                                $scope.question = $scope.testi.substring(0, $scope.alku) + "<a href='" + $scope.testi.substring($scope.alku, $scope.loppu) + "'>" + $scope.testi.substring($scope.alku, $scope.loppu) + "</a>" + $scope.testi.substring($scope.loppu);
+                                questionSpell($scope.question);
+                            } else {
+                                questionSpell(data.question);
+                            }
+                            $scope.form = false;
+                            $scope.options = data.answers;
+                            $log.info(data);
+                        }
                     }).error(function (err) {
                         $log.info("Tapahtui virhe");
                     })
@@ -104,6 +150,5 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                         $log.info("Tapahtui virhe");
                    })
         };
-
     });
 }]);
