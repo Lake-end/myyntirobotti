@@ -54,7 +54,7 @@
                 <div class="panel-body">
                     <div class="questions">
                         <div class="question">
-                            <p ng-bind-html="question | linky" ></p>
+                            <p ng-bind-html="question"></p>
                         </div>
                         <hr align="center" width="95%">
                         <div ng-repeat="option in options" ng-click="answerFunction(option.qid, option.id)">
