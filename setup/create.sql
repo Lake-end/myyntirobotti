@@ -30,3 +30,15 @@ question_id SERIAL REFERENCES Question(id),
 answer_id SERIAL REFERENCES Answer(id),
 link_clicked BOOLEAN
 );
+
+CREATE TABLE Contact (
+id SERIAL PRIMARY KEY,
+session_id INT REFERENCES Session(id),
+timestamp TIMESTAMP NOT NULL,
+name VARCHAR(100) NOT NULL,
+surname VARCHAR(100) NOT NULL,
+phone VARCHAR(100),
+email VARCHAR(100),
+organisation VARCHAR(100) NOT NULL,
+comments VARCHAR(255)
+);

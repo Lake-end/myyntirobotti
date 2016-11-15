@@ -1,8 +1,10 @@
 var questionService = require('../services/questionService');
 var sessionService = require('../services/sessionService');
 var emailService = require('../services/emailService');
+var contactService = require('../services/contactService');
 
 var Answer = require('../models/answer');
+var Contact = require('../models/contact');
 var Question = require('../models/question');
 var Session = require('../models/session');
 var SessionAnswer = require('../models/sessionAnswer');
@@ -125,6 +127,30 @@ question_id ${questionId} and answer_id ${answerId}`);
       });
     }
   });
+
+  app.post('/send-contact-request', function (req, res) {
+    var body = req.body;
+
+    var sessionId = body.session_id;
+    var name = body.name;
+    var surname = body.surname;
+    var phone = body.phone;
+    var email = body.email;
+    var org = body.org;
+    var comments = body.comments;
+
+    var contact = new Contact(null, sessionId, null, name, surname, phone, email, org, comments);
+
+    contactService.sendContactDetails(contact, function(err) {
+      if (err) {
+        console.log(err);
+
+        res.status(500).send('Error: Failed to send contact details');
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  })
 
   app.get('/send-contact-request', function (req, res) {
     emailService.sendContactMail();
