@@ -137,10 +137,10 @@ question_id ${questionId} and answer_id ${answerId}`);
     var surname = body.surname;
     var phone = body.phone;
     var email = body.email;
-    var org = body.org;
+    var organisation = body.organisation;
     var comments = body.comments;
 
-    var contact = new Contact(null, sessionId, null, name, surname, phone, email, org, comments);
+    var contact = new Contact(null, sessionId, null, name, surname, phone, email, organisation, comments);
 
     contactService.sendContactDetails(contact, function(err) {
       if (err) {
@@ -151,10 +151,11 @@ question_id ${questionId} and answer_id ${answerId}`);
         res.sendStatus(200);
       }
     });
-  })
-
+  });
+/*
   app.get('/send-contact-request', function (req, res) {
     emailService.sendContactMail();
           res.sendStatus(200);
   })
+  */
 };

@@ -85,5 +85,40 @@ module.exports = {
       .catch(function (err) {
         callback(err)
       })
-  }
+  },
+    getSessionAnswers: function (id, callback) {
+        db.manyOrNone(
+            `SELECT q.id, q.text, a.text, sa.link_clicked, c.name, c.surname, c.phone, c.email, c.organisation, c.comments
+        FROM Session s
+        JOIN SessionAnswer sa ON s.id = sa.session_id
+        JOIN Question q ON sa.question_id = q.id
+        JOIN Answer a ON sa.answer_id = a.id
+        JOIN Contact c on s.id = c.session_id
+        WHERE s.id = 1
+        ORDER BY q.id`,
+            id
+        )
+            .then(function (data) {
+
+                if (data.length > 0) {
+
+
+                    var answers = []
+                    for (i = 0; i < data.length; i++) {
+                        var answer = new Answer(data[i].answer_id)
+                        console.log(answer);
+                        answers.push(answer);
+                    }
+
+
+
+                    callback(null, answers);
+                } else {
+                    callback(new SessionNotFoundError(id));
+                }
+            })
+            .catch(function (err) {
+                callback(err);
+            })
+    }
 };

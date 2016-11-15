@@ -9,11 +9,11 @@ module.exports = {
     var surname = contact.surname;
     var phone = contact.phone;
     var email = contact.email;
-    var org = contact.organisation;
+    var organisation = contact.organisation;
     var comments = contact.comments;
 
     db.none('INSERT INTO Contact(session_id, timestamp, name, surname, phone, email, organisation, comments) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
-      [sessionId, new Date(), name, surname, phone, email, org, comments])
+      [sessionId, new Date(), name, surname, phone, email, organisation, comments])
       .then(function () {
         callback(null);
       })
@@ -32,10 +32,10 @@ module.exports = {
         var surname = data.surname;
         var phone = data.phone;
         var email = data.email;
-        var org = data.org;
+        var organisation = data.organisation;
         var comments = data.comments;
 
-        var contact = new Contact(id, sessionId, timestamp, name, surname, phone, email, org, comments);
+        var contact = new Contact(id, sessionId, timestamp, name, surname, phone, email, organisation, comments);
 
         callback(null, contact);
       })
