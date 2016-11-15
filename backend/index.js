@@ -3,7 +3,6 @@
 // Set up the app.
 var express = require('express');
 var bodyParser = require('body-parser');
-var emailService = require('./services/emailService');
 var app = express();
 
 app.use(bodyParser.json());
@@ -13,11 +12,20 @@ require('dotenv').load();
 
 require('./routes/routes')(app);
 
+var reportService = require('./services/reportService');
+
 // Start the server.
 app.listen(3000, function() {
   console.log('App started. Listening to port 3000.');
 });
 
+var reportTimer = process.env.REPORT_TIMER_MS || 86400000;
+
 // Set timer for report emails.
-// setInterval(function() {emailService.sendReportMail()}, 10000); // 10 seconds
-// setInterval(function() {emailService.sendReportMail()}, 43200000); // 12 hours
+setInterval(function () {
+  reportService.sendReport(function (err) {
+    if (err) {
+      console.log(err);
+    }
+  })
+}, reportTimer);
