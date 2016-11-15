@@ -222,3 +222,7 @@ height:5%;
     margin:0;
     background-color:transparent;
 }
+
+.glyphicon-remove, .glyphicon-chevron-left{
+    cursor: pointer;
+}
