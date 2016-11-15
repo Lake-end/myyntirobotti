@@ -218,3 +218,11 @@ height:5%;
 .glyphicon-remove, .glyphicon-chevron-left{
     cursor: pointer;
 }
+
+.form-horizontal .form-group{
+    margin:7px 0;
+}
+.form-control {
+    width:97%;
+    margin:auto;
+}
