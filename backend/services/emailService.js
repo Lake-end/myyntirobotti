@@ -19,8 +19,53 @@ module.exports = {
             from: '"Myyntirobotti" <myyntirobotti@gmail.com>',
             to: 'myyntirobotti@gmail.com',
             subject: 'Yhteydenottopyyntö',
-            text: 'Testi',
-            html: 'Testi'
+            text: 'Myyntirobotti on vastaanottanut yhteydenottopyynnön.' +
+
+            '\n\nYhteystiedot' +
+            '\nEtunimi: x' +
+            '\nSukunimi: x' +
+            '\nPuh. nro.: x' +
+            '\nSähköposti: x' +
+            '\nLisätietoa: x' +
+
+            '\n\nAsiakkaan vastaukset' +
+
+            '\n\nMikä on yrityksenne toimiala?' +
+            '\nx' +
+            '\nMinkä kokoinen yrityksenne on?' +
+            '\nx' +
+            '\nMiten suuri on yrityksenne liikevaihto?' +
+            '\nx' +
+            '\nMikä on asemasi yrityksessä?' +
+            '\nx' +
+            '\nMillainen toiminnallisuus on ERP-ratkaisullesi tärkeintä?' +
+            '\nx' +
+            '\nKatsoiko asiakas tarjotun videon?' +
+            '\nx',
+
+            html: '<p>Myyntirobotti on vastaanottanut yhteydenottopyynnön.</p>' +
+
+            '<p>Yhteystiedot<br>' +
+            'Etunimi: x<br>' +
+            'Sukunimi: x<br>' +
+            'Puh. nro.: x<br>' +
+            'Sähköposti: x<br>' +
+            'Organisaation nimi: x<br>' +
+            'Lisätietoa: x</p>' +
+
+            '<p>Asiakkaan vastaukset</p>' +
+            '<p>Mikä on yrityksenne toimiala?<br>' +
+            'x<br>' +
+            'Minkä kokoinen yrityksenne on?<br>' +
+            'x<br>' +
+            'Miten suuri on yrityksenne liikevaihto?<br>' +
+            'x<br>' +
+            'Mikä on asemasi yrityksessä?<br>' +
+            'x<br>' +
+            'Millainen toiminnallisuus on ERP-ratkaisullesi tärkeintä?<br>' +
+            'x<br>' +
+            'Katsoiko asiakas tarjotun videon?<br>' +
+            'x</p>'
         };
 
         transporter.sendMail(mailOptions, function(error, info) {
@@ -36,8 +81,18 @@ module.exports = {
             from: '"Myyntirobotti" <myyntirobotti@gmail.com>',
             to: 'myyntirobotti@gmail.com',
             subject: 'Kooste Myyntirobotin käyttöhistoriasta ajalta x',
-            text: 'Testi',
-            html: 'Testi'
+            text: 'Myyntirobotti on muodostanut ajastetun koosteen sovelluksen käyttöhistoriasta ajalta x - x.' +
+
+                  '\n\nKooste on liitteenä csv-muotoisessa tiedostossa, jonka voi avata esim. Microsoft Excelillä.',
+            html: '<p>Myyntirobotti on muodostanut ajastetun koosteen sovelluksen käyttöhistoriasta ajalta x - x.</p>' +
+
+                  '<p>Kooste on liitteenä csv-muotoisessa tiedostossa, jonka voi avata esim. Microsoft Excelillä.</p>',
+            /*
+            attachments:
+            {
+                path: './attachment.csv'
+            }
+            */
         };
 
         transporter.sendMail(mailOptions, function(error, info) {
