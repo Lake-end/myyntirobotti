@@ -23,7 +23,7 @@
     }).on("dragstop", function (e) {
         var $this = $(this);
         $('#bubble').remove();
-        if(middleY < e.pageY){
+        if(middleY < e.pageY-500){
             box.style.bottom = "600%";
             }
         else
@@ -47,18 +47,21 @@
     });
 
     $('.chat-head').click(function (e) {
-        var chatMessage = $(this).find('.message');
+         var chatMessage = $(this).find('.message');
         $('#bubble').remove();
         if (!chatMessage.is(':visible')) {
+
             $('.message:visible').hide();
             if(e.pageX > middle){
                 box.style.left = "-450%";
+                box.style.top = "10%";
             }
             else {
                 box.style.left = "20%";
+                box.style.top = "10%";
             }
         }
-            chatMessage.toggle(100);
+            chatMessage.fadeToggle("slow");
             $('#bubble').remove();
     });
     $('#msg').on("click", function() {
