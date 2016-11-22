@@ -1,3 +1,4 @@
+var Session = require('./session');
 var Question = require('./question');
 var Answer = require('./answer');
 
