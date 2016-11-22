@@ -178,7 +178,7 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                     }
                     if(found == false){
                         linkPart = question.substring(begin);
-                        if(linkPart.substring(0,2) == 'www'){
+                        if(linkPart.substring(0,3) == 'www'){
                             linkPart = "http://" + linkPart;
                         }
                         returnValue = question.substring(0, begin) + "<a target='_blank' href='" + linkPart + "'>" + linkPart + "</a>";

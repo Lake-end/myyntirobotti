@@ -22,7 +22,7 @@ body {
     height: 100%;
     background-size: 105%;
     border-radius: 55px;
-    box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.7), 0 0 5px rgba(0, 0, 0, 1);
+    box-shadow: inset 0px 0px 8px rgba(0, 0, 0, 0.7), 0 0 0px rgba(0, 0, 0, 1);
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
@@ -218,6 +218,12 @@ height:5%;
 
 .glyphicon-remove, .glyphicon-chevron-left{
     cursor: pointer;
+}
+
+.glyphicon-remove{
+
+    font-size:2em;
+    color:#828282;
 }
 
 .glyphicon-remove:hover{
