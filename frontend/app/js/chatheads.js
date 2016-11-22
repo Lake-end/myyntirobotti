@@ -18,28 +18,41 @@
         containment: "parent",
         opacity: 0.95,
         scope: "chathead",
-        scroll: true
+        scroll: true,
+        refreshPositions: true,
+        snap: true
 
     }).on("dragstop", function (e) {
         var $this = $(this);
         $('#bubble').remove();
-        if(middleY < e.pageY-500){
+        if(middleY < e.pageY){
             box.style.bottom = "600%";
             }
         else
             box.style.bottom = 0;
+        if (window.innerWidth/2 > e.pageX) {
 
-        if (middle > e.pageX) {
-            box.style.left = "20%";
+        } else {
+            box.style.left ="-450%"
+        };
+
+       /* Alku puolenvaihtoanimaatiolle.
+       if (window.innerWidth/2 > e.pageX) {
+
+            $("#msg").animate({
+                left: "+=250"
+            });
+        } else {
+            $("#msg").animate({
+                left: "-=250"
+            });
+        }; */
+        if (window.innerWidth/7 > e.pageX) {
             $this.animate({
                 left: -offset
             });
-        } else {
+        } if(window.innerWidth-(window.innerWidth /7) < e.pageX) {
 
-            box.style.left ="-450%";
-            // Togglet ovat workaround scrollbar-ongelmalle
-            $this.toggle();
-            $this.toggle();
             $this.animate({
                 left: bodyWidth + offset - $this.width()
             });
