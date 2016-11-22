@@ -72,5 +72,24 @@ module.exports = {
       .catch(function (err) {
         callback(err);
       })
+  },
+
+  getCurrentQuestion: function (answerId, callback) {
+    db.manyOrNone(`
+      SELECT q.id as id, q.text as text FROM QuestionAnswer qa
+      LEFT JOIN question q ON q.id = qa.next_question
+      WHERE qa.answer_id = $1
+    `, answerId)
+      .then(function (data) {
+        if (data.length > 0) {
+          var question = new Question(data[0].id, data[0].text, []);
+          callback(null, question);
+        } else {
+          callback();
+        }
+      })
+      .catch(function (err) {
+        callback(err);
+      })
   }
 };

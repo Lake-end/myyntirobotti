@@ -25,9 +25,11 @@ module.exports = {
       if (err) {
         callback(err);
       } else {
-        sessionDao.updateSession(sessionAnswer.session.id, sessionAnswer.question.id, function (err, data) {
-          callback(err, data);
-        });
+        questionDao.getCurrentQuestion(sessionAnswer.answer.id, function (err, question) {
+          sessionDao.updateSession(sessionAnswer.session.id, question.id, function (err, question) {
+            callback(err, data);
+          })
+        })
       }
     });
   }
