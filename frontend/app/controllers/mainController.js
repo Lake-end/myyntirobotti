@@ -27,24 +27,10 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
 
                 if(data.id==1000){
                     $scope.form = true;
+                    $scope.question = findLink(data.question);
                 }
                 else{
-
-                    $scope.alku = data.question.search("http");
-                    // Jos linkistä löytyy 'http', laitetaan <a href='...'>...</a>
-                    if($scope.alku > -1){
-                        if(data.question.search(".fi") == -1){
-                            $scope.loppu = data.question.search(".com") + 4;
-                        } else if(data.question.search(".com") == -1){
-                            $scope.loppu = data.question.search(".fi") + 3;
-                        }
-                        $scope.testi = data.question;
-                        $scope.question = $scope.testi.substring(0, $scope.alku) + "<a href='" + $scope.testi.substring($scope.alku, $scope.loppu) + "'>" + $scope.testi.substring($scope.alku, $scope.loppu) + "</a>" + $scope.testi.substring($scope.loppu);
-                    }
-                    // Jos ei löydy 'http', kysymys kirjoitetaan normaalisti
-                    else{
-                        $scope.question = data.question;
-                    }
+                    $scope.question = findLink(data.question);
                     $scope.form = false;
                     $scope.options = data.answers;
                     $scope.id=$scope.data.id;
@@ -112,23 +98,10 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                         $scope.id = data.id;
                         if(data.id==1000){
                             $scope.form = true;
-                            questionSpell(data.question);
+                            questionSpell(findLink(data.question));
                         }
                         else{
-                            $scope.alku = data.question.search("http");
-                            if($scope.alku > -1){
-                                $log.info("alku: " + $scope.alku);
-                                if(data.question.search(".fi") == -1){
-                                    $scope.loppu = data.question.search(".com") + 4;
-                                } else if(data.question.search(".com") == -1){
-                                    $scope.loppu = data.question.search(".fi") + 3;
-                                }
-                                $scope.testi = data.question;
-                                $scope.question = $scope.testi.substring(0, $scope.alku) + "<a href='" + $scope.testi.substring($scope.alku, $scope.loppu) + "'>" + $scope.testi.substring($scope.alku, $scope.loppu) + "</a>" + $scope.testi.substring($scope.loppu);
-                                questionSpell($scope.question);
-                            } else {
-                                questionSpell(data.question);
-                            }
+                            questionSpell(findLink(data.question));
                             $scope.form = false;
                             $scope.options = data.answers;
                             $log.info(data);
@@ -142,24 +115,106 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
 
         $scope.clearSession = function() {
                 var id = JSON.parse(sessionStorage.getItem("sessionId")).id;
-                    sessionStorage.clear();
+                   sessionStorage.clear();
                    $http.get('/delete-session/' + id).
                    success(function(data) {
                    $log.info(data);
                    }).error(function(err) {
                         $log.info("Tapahtui virhe");
                    })
-                $http.get('/create-session').
-                success(function(data){
-                    sessionStorage.setItem("sessionId", JSON.stringify(data));
-                    $log.info(JSON.parse(sessionStorage.getItem("sessionId")));
-                }).error(function(data) {
-                    $log.info("t2" + data);
-                })
-                $scope.form = false;
-                $scope.id=$scope.data.id;
-                $scope.question = $scope.data.question;
-                $scope.options = $scope.data.answers;
+                   $http.get('/create-session').
+
+                  success(function(data){
+                      sessionStorage.setItem("sessionId", JSON.stringify(data));
+                      $log.info(JSON.parse(sessionStorage.getItem("sessionId")));
+                  }).error(function(data) {
+                      $log.info("t2" + data);
+                  })
+                  $scope.form = false;
+                  $scope.id=$scope.data.id;
+                  $scope.question = findLink($scope.data.question);
+                  $scope.options = $scope.data.answers;
         };
+
+         var findLink = function(question) {
+                    $scope.end;
+                    $scope.begin;
+                    $scope.test;
+                    $scope.http = question.search("http");
+                    $scope.www = question.search("www");
+
+                    if($scope.http > -1){
+                        return linkTypes(question, $scope.http);
+                    }
+                    else if($scope.www > -1){
+                        return linkTypes(question, $scope.www);
+                    }
+                    else{
+                        return fileFormats(question);
+                    }
+                }
+
+                var linkTypes = function(question, linkType){
+                    var begin = linkType;
+                    var linkPart;
+                    var end;
+                    var found = false;
+                    var returnValue;
+
+                    for(var x = begin; x <= question.length; x++){
+                        if(question.substring(x, x+1) == " "){
+                            linkPart = question.substring(begin, x);
+                            found = true;
+                            if(begin == 0){
+                                returnValue = "<a href='" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
+                            }
+                            else{
+                                returnValue = question.substring(0, begin) + "<a href='" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
+                            }
+                            break;
+                        }
+                    }
+                    if(found == false){
+                        returnValue = question.substring(0, begin) + "<a href='" + linkPart + "'>" + linkPart + "</a>";
+                    }
+                    return returnValue;
+                }
+
+                var fileFormats = function(question){
+                    var end;
+                    var type;
+                    var returnValue;
+                    var linkPart;
+                    var found = false;
+
+                    if(question.search(".pdf") > -1){
+                        end = question.search(".pdf") + 4;
+                    }
+                    else if(question.search(".html") > -1) {
+                        end = question.search(".html") + 5;
+                    }
+                    else if(question.search(".jpg") > -1){
+                        end = question.search(".jgp") + 4;
+                    }
+                    else if(question.search(".png") > -1){
+                        end = question.search(".png") + 4;
+                    }
+                    else {
+                        return question;
+                    }
+
+                    for(var x = end; x > 0; x--){
+                        if(question.substring(x, x+1) == ' '){
+                            linkPart = question.substring(x+1, end);
+                            found = true;
+                            returnValue = question.substring(0, x+1) + "<a href='" + linkPart + "'>" + linkPart + "</a>" + question.substring(end);
+                            break;
+                        }
+                    }
+                    if(found == false){
+                        returnValue = "<a href='" + question.substring(0, end) + "'>" + question.substring(0, end) + "</a>" + question.substring(end);
+                    }
+                    return returnValue;
+                }
     });
 }]);
