@@ -166,16 +166,17 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                             linkPart = question.substring(begin, x);
                             found = true;
                             if(begin == 0){
-                                returnValue = "<a href='" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
+                                returnValue = "<a target='_blank' href='http://" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
                             }
                             else{
-                                returnValue = question.substring(0, begin) + "<a href='" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
+                                returnValue = question.substring(0, begin) + "<a target='_blank' href='http://" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
                             }
                             break;
                         }
                     }
                     if(found == false){
-                        returnValue = question.substring(0, begin) + "<a href='" + linkPart + "'>" + linkPart + "</a>";
+                        linkPart = question.substring(begin);
+                        returnValue = question.substring(0, begin) + "<a target='_blank' href='http://" + linkPart + "'>" + linkPart + "</a>";
                     }
                     return returnValue;
                 }
@@ -207,12 +208,12 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                         if(question.substring(x, x+1) == ' '){
                             linkPart = question.substring(x+1, end);
                             found = true;
-                            returnValue = question.substring(0, x+1) + "<a href='" + linkPart + "'>" + linkPart + "</a>" + question.substring(end);
+                            returnValue = question.substring(0, x+1) + "<a target='_blank' href='http://" + linkPart + "'>" + linkPart + "</a>" + question.substring(end);
                             break;
                         }
                     }
                     if(found == false){
-                        returnValue = "<a href='" + question.substring(0, end) + "'>" + question.substring(0, end) + "</a>" + question.substring(end);
+                        returnValue = "<a target='_blank' href='" + question.substring(0, end) + "'http://>" + question.substring(0, end) + "</a>" + question.substring(end);
                     }
                     return returnValue;
                 }
