@@ -164,19 +164,24 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                     for(var x = begin; x <= question.length; x++){
                         if(question.substring(x, x+1) == " "){
                             linkPart = question.substring(begin, x);
+                            if(linkPart.substring(0,2) == 'www')
+                                linkPart = "http://" + linkPart;
                             found = true;
                             if(begin == 0){
-                                returnValue = "<a target='_blank' href='http://" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
+                                returnValue = "<a target='_blank' href='" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
                             }
                             else{
-                                returnValue = question.substring(0, begin) + "<a target='_blank' href='http://" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
+                                returnValue = question.substring(0, begin) + "<a target='_blank' href='" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
                             }
                             break;
                         }
                     }
                     if(found == false){
                         linkPart = question.substring(begin);
-                        returnValue = question.substring(0, begin) + "<a target='_blank' href='http://" + linkPart + "'>" + linkPart + "</a>";
+                        if(linkPart.substring(0,2) == 'www'){
+                            linkPart = "http://" + linkPart;
+                        }
+                        returnValue = question.substring(0, begin) + "<a target='_blank' href='" + linkPart + "'>" + linkPart + "</a>";
                     }
                     return returnValue;
                 }
@@ -213,7 +218,7 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                         }
                     }
                     if(found == false){
-                        returnValue = "<a target='_blank' href='" + question.substring(0, end) + "'http://>" + question.substring(0, end) + "</a>" + question.substring(end);
+                        returnValue = "<a target='_blank' href='http://" + question.substring(0, end) + "'>" + question.substring(0, end) + "</a>" + question.substring(end);
                     }
                     return returnValue;
                 }
