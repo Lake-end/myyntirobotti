@@ -25,12 +25,35 @@
         <div class="question">
             <p ng-bind-html="question | linky"></p>
         </div>
-        <hr align="center" width="95%">
-        <div ng-repeat="option in options" ng-click="answerFunction(option.qid, option.id)">
+        <hr ng-if="form==false" align="center" width="95%">
+        <div ng-if="form==false" ng-repeat="option in options" ng-click="answerFunction(option.qid, option.id)">
             <div class="buttons" role="button">
                 <p ng-hide="hide">{{option.answer}}</p>
             </div>
             <hr align="center" width="95%">
+        </div>
+        <div ng-if="form==true">
+            <form class="form-horizontal text-center" ng-submit="formSubmit();">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Etunimi" ng-model="formData.name" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Sukunimi" ng-model="formData.surname" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" class="form-control" placeholder="Puhelinnumero" ng-model="formData.phone" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Sähköposti" ng-model="formData.email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Organisaation nimi" ng-model="formData.org" required>
+                </div>
+                <div class="form-group">
+                    <textarea maxlength="255" type="text" class="form-control" placeholder="Vapaa kenttä" ng-model="formData.comments"></textarea>
+                </div>
+                <input type="submit" class="btn btn-default" value="Lähetä">
+            </form>
         </div>
     </div>
     <div class="bubble" id="bubble">
@@ -44,7 +67,7 @@
     <div style="height:55px;">
         <div class="circle-header" ng-click="headHide = !headHide" data-toggle="collapse" href="#collapse1"></div>
         <div class="box-header" ng-hide="!headHide">
-            <span title="Poista tallennetut tiedot" class="col-md-3 col-md-offset-9 glyphicon glyphicon-remove" ng-click="clearSession(); headHide = !headHide" data-toggle="collapse" href="#collapse1"></span>
+            <span title="Poista tallennetut tiedot" class="col-md-3 col-md-offset-9 glyphicon glyphicon-remove" ng-click="clearSession(); headHide = !headHide"></span>
         </div>
     </div>
     <div class="panel-group">

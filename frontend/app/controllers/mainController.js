@@ -149,6 +149,17 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                    }).error(function(err) {
                         $log.info("Tapahtui virhe");
                    })
+                $http.get('/create-session').
+                success(function(data){
+                    sessionStorage.setItem("sessionId", JSON.stringify(data));
+                    $log.info(JSON.parse(sessionStorage.getItem("sessionId")));
+                }).error(function(data) {
+                    $log.info("t2" + data);
+                })
+                $scope.form = false;
+                $scope.id=$scope.data.id;
+                $scope.question = $scope.data.question;
+                $scope.options = $scope.data.answers;
         };
     });
 }]);
