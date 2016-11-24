@@ -13,6 +13,7 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
         $scope.id=0;
         $scope.form = false;
         $scope.formData = {};
+        $scope.link = false;
 
         //if lause ajetaa, jos on olemassa "sessionId" niminen sessio. sessio luodaan metodilla: sessionStorage.setItem("nimi", "arvo");
         if(sessionStorage.getItem("sessionId")!=null){
@@ -83,8 +84,8 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
             $scope.answerFunction(1,1001);
         }
 
-        $scope.answerFunction = function(qid, aid){
-            var answer = JSON.stringify({session_id:JSON.parse(sessionStorage.getItem("sessionId")).id, question_id:$scope.id, answer_id:aid});
+        $scope.answerFunction = function(qid, aid, link){
+            var answer = JSON.stringify({session_id:JSON.parse(sessionStorage.getItem("sessionId")).id, question_id:$scope.id, answer_id:aid, link_clicked:$scope.link});
             $log.info(answer);
             $http.post('/save-answer/', answer).success(function (data) {
                 $log.info(data);
@@ -111,6 +112,7 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                     })
                     $scope.hide = false;
                 }, 400);
+        linkClicked(false);
         };
 
         $scope.clearSession = function() {
@@ -134,6 +136,10 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                   $scope.id=$scope.data.id;
                   $scope.question = findLink($scope.data.question);
                   $scope.options = $scope.data.answers;
+        };
+
+        var linkClicked = function(value){
+            $scope.link = value;
         };
 
          var findLink = function(question) {
@@ -168,10 +174,10 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                                 linkPart = "http://" + linkPart;
                             found = true;
                             if(begin == 0){
-                                returnValue = "<a target='_blank' href='" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
+                                returnValue = "<a ng-click='linkClicked(true);' target='_blank' href='" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
                             }
                             else{
-                                returnValue = question.substring(0, begin) + "<a target='_blank' href='" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
+                                returnValue = question.substring(0, begin) + "<a ng-click='linkClicked(true);' target='_blank' href='" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
                             }
                             break;
                         }
@@ -181,7 +187,7 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                         if(linkPart.substring(0,3) == 'www'){
                             linkPart = "http://" + linkPart;
                         }
-                        returnValue = question.substring(0, begin) + "<a target='_blank' href='" + linkPart + "'>" + linkPart + "</a>";
+                        returnValue = question.substring(0, begin) + "<a ng-click='linkClicked(true);' target='_blank' href='" + linkPart + "'>" + linkPart + "</a>";
                     }
                     return returnValue;
                 }
@@ -213,12 +219,12 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                         if(question.substring(x, x+1) == ' '){
                             linkPart = question.substring(x+1, end);
                             found = true;
-                            returnValue = question.substring(0, x+1) + "<a target='_blank' href='http://" + linkPart + "'>" + linkPart + "</a>" + question.substring(end);
+                            returnValue = question.substring(0, x+1) + "<a ng-click='linkClicked(true);' target='_blank' href='http://" + linkPart + "'>" + linkPart + "</a>" + question.substring(end);
                             break;
                         }
                     }
                     if(found == false){
-                        returnValue = "<a target='_blank' href='http://" + question.substring(0, end) + "'>" + question.substring(0, end) + "</a>" + question.substring(end);
+                        returnValue = "<a ng-click='linkClicked(true);' target='_blank' href='http://" + question.substring(0, end) + "'>" + question.substring(0, end) + "</a>" + question.substring(end);
                     }
                     return returnValue;
                 }

@@ -27,7 +27,7 @@
             <pre><p ng-bind-html="question"></p></pre>
         </div>
         <hr ng-if="form==false" align="center" width="95%">
-        <div ng-if="form==false" ng-repeat="option in options" ng-click="answerFunction(option.qid, option.id)">
+        <div ng-if="form==false" ng-repeat="option in options" ng-click="answerFunction(option.qid, option.id, link)">
             <div class="buttons" role="button">
                 <p ng-hide="hide">{{option.answer}}</p>
             </div>
