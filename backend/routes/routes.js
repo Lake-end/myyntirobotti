@@ -158,10 +158,4 @@ question_id ${questionId} and answer_id ${answerId}`);
       }
     });
   });
-/*
-  app.get('/send-contact-request', function (req, res) {
-    emailService.sendContactMail();
-          res.sendStatus(200);
-  })
-  */
 };
