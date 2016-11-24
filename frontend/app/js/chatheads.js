@@ -7,6 +7,7 @@
 (function($) {
 
     var dragCheck = false;
+    var animator = false;
     var bodyWidth = $(document.body).width(),
     bodyHeight = $(document.body).height(),
     middle = bodyWidth / 2,
@@ -46,16 +47,17 @@
             box.style.left ="-450%"
         };
 
-
-       if (window.innerWidth/2 > e.pageX) {
+       if (window.innerWidth/2 > e.pageX && animator == false) {
 
             $("#msg").animate({
                 left: "+=250"
             });
-        } else {
+           animator = true;
+        } if(window.innerWidth/2 < e.pageX && animator == true) {
             $("#msg").animate({
-                left: "=-200"
+                left: "-=20"
             });
+           animator = false;
         };
         if (window.innerWidth/7 > e.pageX) {
             $this.animate({
