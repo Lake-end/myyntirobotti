@@ -41,7 +41,10 @@ module.exports = function (app) {
 
   // Creates a session and returns the id.
   app.get('/create-session', function (req, res) {
-    var ip = req.ip;
+    var ip = req.headers['x-forwarded-for']
+      || req.connection.remoteAddress
+      || req.socket.remoteAddress
+      || req.connection.socket.remoteAddress;
 
     sessionService.createSession(ip, function (err, session) {
       if (err) {
@@ -56,7 +59,10 @@ module.exports = function (app) {
 
   app.get('/get-session/:id', function (req, res) {
     var id = req.params.id;
-    var ip = req.ip;
+    var ip = req.headers['x-forwarded-for']
+      || req.connection.remoteAddress
+      || req.socket.remoteAddress
+      || req.connection.socket.remoteAddress;
 
     sessionService.getSession(id, ip, function (err, session) {
       if (err) {
