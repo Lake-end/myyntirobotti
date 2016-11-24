@@ -15,28 +15,22 @@
     box = document.getElementById("msg");
     /* Chathead JS */
 
-    $('.chat-head').on("drag", function() {
-        console.log('dragi alkaa')
-        $('#bubble').remove();
-        dragCheck = true;
-        console.log(dragCheck)
-    });
 
     $(".chat-head").draggable({
         containment: "parent",
         opacity: 0.95,
         scope: "chathead",
         scroll: true,
-        refreshPositions: true,
-        snap: true,
         drag: (function(){
             dragCheck = true;
         })
 
 
+    }).on("drag", function() {
+        $('#bubble').remove();
+        dragCheck = true;
     }).on("dragstop", function (e) {
-        console.log('dragi loppuu')
-        console.log(dragCheck)
+
 
 
         var $this = $(this);
@@ -52,7 +46,7 @@
             box.style.left ="-450%"
         };
 
-      /* Alku puolenvaihtoanimaatiolle.
+
        if (window.innerWidth/2 > e.pageX) {
 
             $("#msg").animate({
@@ -60,9 +54,9 @@
             });
         } else {
             $("#msg").animate({
-                left: "-=250"
+                left: "=-200"
             });
-        }; */
+        };
         if (window.innerWidth/7 > e.pageX) {
             $this.animate({
                 left: -offset
@@ -77,7 +71,6 @@
             dragCheck = false;
         }
         setTimeout(dragChange, 1);
-        console.log(dragCheck)
     });
 
     $('.chat-close').click(function (e) {
