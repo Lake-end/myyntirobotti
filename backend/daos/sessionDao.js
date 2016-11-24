@@ -89,10 +89,11 @@ module.exports = {
     },
     getSessionAnswers: function (id, callback) {
         db.manyOrNone(
-            `SELECT a.id , a.text , sa.link_clicked, s.id AS sessionid
+            `SELECT q.id AS questionid, q.text AS questiontext, a.id AS answerid, a.text AS answertext, sa.link_clicked, s.id AS sessionid
         FROM Session s
         JOIN SessionAnswer sa ON s.id = sa.session_id
         JOIN Answer a ON sa.answer_id = a.id
+        JOIN Question q ON sa.question_id = q.id
         WHERE s.id = $1
         ORDER BY a.id`,
             id
@@ -104,8 +105,11 @@ module.exports = {
                     var answers = [];
                     for (i = 0; i < data.length; i++) {
                         var sessionAnswer = new SessionAnswer();
-                        sessionAnswer.answer.id = data[i].id;
-                        sessionAnswer.answer.text = data[i].text;
+
+                        sessionAnswer.question.id = data[i].questionid;
+                        sessionAnswer.question.text = data[i].questiontext;
+                        sessionAnswer.answer.id = data[i].answerid;
+                        sessionAnswer.answer.text = data[i].answertext;
                         sessionAnswer.linkClicked = data[i].link_clicked;
                         sessionAnswer.session.id = data[i].sessionid;
 

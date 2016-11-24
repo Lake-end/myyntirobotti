@@ -26,12 +26,28 @@ module.exports = {
 
                     var transporter = nodemailer.createTransport(smtpConfig);
 
+                    var answerStringText = "";
+                    var answerStringHtml = "";
+
+                    for (i = 0; i < answers.length; i++) {
+                        if (answers[i].question.id > 0 && answers[i].question.id < 6) {
+                            answerStringText = answerStringText.concat(answers[i].question.text + "\n" + answers[i].answer.text + "\n");
+                            answerStringHtml = answerStringHtml.concat(answers[i].question.text + "<br>" + answers[i].answer.text + "<br>");
+                        }
+                    }
+
                     var linkClicked = "";
 
-                    if (answers[5].linkClicked == true) {
-                        linkClicked = "Kyllä";
-                    } else {
-                        linkClicked = "Ei";
+                    for (i = 0; i < answers.length; i++) {
+                        if (answers[i].question.id == 6) {
+                            if (answers[i].linkClicked == true) {
+                                linkClicked = "Kyllä";
+                            } else {
+                                linkClicked = "Ei";
+                            }
+                            answerStringText = answerStringText.concat("Klikkasiko asiakas linkkiä?\n" + linkClicked);
+                            answerStringHtml = answerStringHtml.concat("Klikkasiko asiakas linkkiä?<br>" + linkClicked);
+                        }
                     }
 
                     var mailOptions = {
@@ -51,20 +67,9 @@ Lisätietoa: ${contact.comments}
 
 Asiakkaan vastaukset
 
-Mikä on yrityksenne toimiala?
-${answers[0].answer.text}
-Minkä kokoinen yrityksenne on?
-${answers[1].answer.text}
-Miten suuri on yrityksenne liikevaihto?
-${answers[2].answer.text}
-Mikä on asemasi yrityksessä?
-${answers[3].answer.text}
-Millainen toiminnallisuus on ERP-ratkaisullesi tärkeintä?
-${answers[4].answer.text}
-Katsoiko asiakas tarjotun videon?
-${linkClicked}`,
+${answerStringText}`,
 
-                       html: `<p>Myyntirobotti on vastaanottanut yhteydenottopyynnön.</p>
+                        html: `<p>Myyntirobotti on vastaanottanut yhteydenottopyynnön.</p>
                     
                     <p>Yhteystiedot<br>
                     Etunimi: ${contact.name}<br>
@@ -76,18 +81,7 @@ ${linkClicked}`,
 
                    <p>Asiakkaan vastaukset</p>
 
-                    <p>Mikä on yrityksenne toimiala?<br>
-                    ${answers[0].answer.text}<br>
-                    Minkä kokoinen yrityksenne on?<br>
-                    ${answers[1].answer.text}<br>
-                    Miten suuri on yrityksenne liikevaihto?<br>
-                    ${answers[2].answer.text}<br>
-                    Mikä on asemasi yrityksessä?<br>
-                    ${answers[3].answer.text}<br>
-                    Millainen toiminnallisuus on ERP-ratkaisullesi tärkeintä?<br>
-                    ${answers[4].answer.text}<br>
-                    Katsoiko asiakas tarjotun videon?<br>
-                    ${linkClicked}</p>`
+                    <p>${answerStringHtml}</p>`
                     };
 
                     transporter.sendMail(mailOptions, function (error, info) {
