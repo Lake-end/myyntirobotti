@@ -7,10 +7,10 @@ body {
 
 pre {
     background-color:white;
+    min-height:75px;
     border:none;
     font-family: 'Raleway', serif;
     width:100%;
-    height:75px;
     white-space: pre;           /* CSS 2.0 */
 	white-space: pre-wrap;      /* CSS 2.1 */
 	white-space: pre-line;      /* CSS 3.0 */
