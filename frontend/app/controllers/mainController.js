@@ -19,7 +19,6 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
 
         //if lause ajetaa, jos on olemassa "sessionId" niminen sessio. sessio luodaan metodilla: sessionStorage.setItem("nimi", "arvo");
         if(sessionStorage.getItem("sessionId")!=null){
-            $log.info("sessio löytyy");
             //Tarkistetaan löytyykö sessiota
             var id = JSON.parse(sessionStorage.getItem("sessionId")).id;
             $http.get('/get-session/' + id).
@@ -40,11 +39,11 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                 }
 
                 }).error(function(err) {
-                    $log.info("Tapahtui virhe");
+                    $log.info("virhe kysymyksen hakemisessa: " + data);
                 })
                 $log.info(data);
             }).error(function(err) {
-                $log.info("Tapahtui virhe");
+                $log.info("virhe session hakemisessa: " + data);
             })
         }
         else{
@@ -55,7 +54,7 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                 sessionStorage.setItem("sessionId", JSON.stringify(data));
                 $log.info(JSON.parse(sessionStorage.getItem("sessionId")));
             }).error(function(data) {
-                $log.info("t2" + data);
+                $log.info("virhe session luomisessa: " + data);
             })
             $scope.id=$scope.data.id;
             $scope.question = $scope.data.question;
@@ -63,15 +62,6 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
         }
         $log.info($scope.data);
 
-        var questionSpell = function(x){
-            $scope.num = 1;
-            $scope.que=x;
-            var spell = function(){
-                $scope.question = $scope.que.substring(0,$scope.num);
-                $scope.num++;
-            }
-            $interval(spell, 30, $scope.que.length);
-        }
 
         $scope.formSubmit = function(){
 
@@ -80,10 +70,9 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
             $http.post('/send-contact-request/', $scope.formData).success(function (data) {
                 $log.info(data);
             }).error(function (err) {
-                $log.info("Tapahtui virhe");
+                $log.info("virhe lomakkeen lähetyksessä: " + data);
             })
 
-            $scope.answerFunction(1,1001);
         }
 
         $scope.answerFunction = function(qid, aid){
@@ -93,9 +82,9 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
             var answer = JSON.stringify({session_id:JSON.parse(sessionStorage.getItem("sessionId")).id, question_id:$scope.id, answer_id:aid, link_clicked:$scope.link, answer_url:url});
             $log.info(answer);
             $http.post('/save-answer/', answer).success(function (data) {
-                $log.info(data);
+                $log.info("vastaus tallennettiin");
             }).error(function (err) {
-                $log.info("Tapahtui virhe");
+                $log.info("virhe vastauksen tallentamisessa: " + data);
             })
 
                 $scope.hide = true;
@@ -104,19 +93,22 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                         $scope.id = data.id;
                         if(data.id==1000){
                             $scope.form = true;
-                            questionSpell(findLink(data.question));
+                            $scope.question = findLink(data.question);
+                            $scope.options = data.answers;
                         }
                         else{
-                            questionSpell(findLink(data.question));
+                            $scope.question = findLink(data.question);
                             $scope.form = false;
                             $scope.options = data.answers;
                             $log.info(data);
                         }
                     }).error(function (err) {
-                        $log.info("Tapahtui virhe");
+                        $log.info("virhe seuraavan kysmyksen hakemisessa: " + data);
                     })
-                    $scope.hide = false;
                 }, 400);
+            $timeout(function () {
+                $scope.hide = false;
+            }, 500);
         $scope.link = false;
         };
 
@@ -127,7 +119,7 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                    success(function(data) {
                    $log.info(data);
                    }).error(function(err) {
-                        $log.info("Tapahtui virhe");
+                        $log.info("virhe session poistamisessa: " + data);
                    })
                    $http.get('/create-session').
 
@@ -135,7 +127,7 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                       sessionStorage.setItem("sessionId", JSON.stringify(data));
                       $log.info(JSON.parse(sessionStorage.getItem("sessionId")));
                   }).error(function(data) {
-                      $log.info("t2" + data);
+                      $log.info("virhe session luomisessa" + data);
                   })
                   $scope.form = false;
                   $scope.id=$scope.data.id;
