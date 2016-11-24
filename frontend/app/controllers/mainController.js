@@ -84,7 +84,7 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
             $scope.answerFunction(1,1001);
         }
 
-        $scope.answerFunction = function(qid, aid, link){
+        $scope.answerFunction = function(qid, aid){
             var answer = JSON.stringify({session_id:JSON.parse(sessionStorage.getItem("sessionId")).id, question_id:$scope.id, answer_id:aid, link_clicked:$scope.link});
             $log.info(answer);
             $http.post('/save-answer/', answer).success(function (data) {
@@ -112,7 +112,7 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                     })
                     $scope.hide = false;
                 }, 400);
-        linkClicked(false);
+        $scope.link = false;
         };
 
         $scope.clearSession = function() {
@@ -139,25 +139,27 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
         };
 
         var linkClicked = function(value){
-            $scope.link = value;
+        $scope.link = true;
+        var stringValue = value.toString();
+            $window.open(stringValue, '_blank');
         };
 
          var findLink = function(question) {
-                    $scope.end;
-                    $scope.begin;
-                    $scope.test;
-                    $scope.http = question.search("http");
-                    $scope.www = question.search("www");
+                $scope.end;
+                $scope.begin;
+                $scope.test;
+                $scope.http = question.search("http");
+                $scope.www = question.search("www");
 
-                    if($scope.http > -1){
-                        return linkTypes(question, $scope.http);
-                    }
-                    else if($scope.www > -1){
-                        return linkTypes(question, $scope.www);
-                    }
-                    else{
-                        return fileFormats(question);
-                    }
+                if($scope.http > -1){
+                    return linkTypes(question, $scope.http);
+                }
+                else if($scope.www > -1){
+                    return linkTypes(question, $scope.www);
+                }
+                else{
+                    return fileFormats(question);
+                }
                 }
 
                 var linkTypes = function(question, linkType){
@@ -174,10 +176,10 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                                 linkPart = "http://" + linkPart;
                             found = true;
                             if(begin == 0){
-                                returnValue = "<a ng-click='linkClicked(true);' target='_blank' href='" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
+                                returnValue = "<a ng-click='linkClicked(" + linkPart + ");' target='_blank' href='" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
                             }
                             else{
-                                returnValue = question.substring(0, begin) + "<a ng-click='linkClicked(true);' target='_blank' href='" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
+                                returnValue = question.substring(0, begin) + "<a ng-click='linkClicked(" + linkPart + ");' target='_blank' href='" + linkPart + "'>" + linkPart + "</a>" + question.substring(x);
                             }
                             break;
                         }
@@ -187,7 +189,7 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                         if(linkPart.substring(0,3) == 'www'){
                             linkPart = "http://" + linkPart;
                         }
-                        returnValue = question.substring(0, begin) + "<a ng-click='linkClicked(true);' target='_blank' href='" + linkPart + "'>" + linkPart + "</a>";
+                        returnValue = question.substring(0, begin) + "<a ng-click='linkClicked(" + linkPart + ");'target='_blank' href='" + linkPart + "'>" + linkPart + "</a>";
                     }
                     return returnValue;
                 }
@@ -219,12 +221,12 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
                         if(question.substring(x, x+1) == ' '){
                             linkPart = question.substring(x+1, end);
                             found = true;
-                            returnValue = question.substring(0, x+1) + "<a ng-click='linkClicked(true);' target='_blank' href='http://" + linkPart + "'>" + linkPart + "</a>" + question.substring(end);
+                            returnValue = question.substring(0, x+1) + "<a ng-click='linkClicked(" + linkPart + ");' target='_blank' href='http://" + linkPart + "'>" + linkPart + "</a>" + question.substring(end);
                             break;
                         }
                     }
                     if(found == false){
-                        returnValue = "<a ng-click='linkClicked(true);' target='_blank' href='http://" + question.substring(0, end) + "'>" + question.substring(0, end) + "</a>" + question.substring(end);
+                        returnValue = "<a ng-click='linkClicked(" + linkPart + ");' target='_blank' href='http://" + question.substring(0, end) + "'>" + question.substring(0, end) + "</a>" + question.substring(end);
                     }
                     return returnValue;
                 }
