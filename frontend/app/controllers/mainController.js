@@ -15,6 +15,8 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
         $scope.formData = {};
         $scope.link = false;
 
+        var referrer = document.referrer;
+
         //if lause ajetaa, jos on olemassa "sessionId" niminen sessio. sessio luodaan metodilla: sessionStorage.setItem("nimi", "arvo");
         if(sessionStorage.getItem("sessionId")!=null){
             $log.info("sessio löytyy");
@@ -85,7 +87,10 @@ app.controller('MainController', ['$scope', 'ChatWindow', '$timeout', '$log', '$
         }
 
         $scope.answerFunction = function(qid, aid){
-            var answer = JSON.stringify({session_id:JSON.parse(sessionStorage.getItem("sessionId")).id, question_id:$scope.id, answer_id:aid, link_clicked:$scope.link});
+            var url = window.location.pathname;
+            $log.info(url);
+
+            var answer = JSON.stringify({session_id:JSON.parse(sessionStorage.getItem("sessionId")).id, question_id:$scope.id, answer_id:aid, link_clicked:$scope.link, answer_url:url});
             $log.info(answer);
             $http.post('/save-answer/', answer).success(function (data) {
                 $log.info(data);
