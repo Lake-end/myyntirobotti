@@ -6,7 +6,7 @@
 
 (function($) {
 
-
+    var dragCheck = false;
     var bodyWidth = $(document.body).width(),
     bodyHeight = $(document.body).height(),
     middle = bodyWidth / 2,
