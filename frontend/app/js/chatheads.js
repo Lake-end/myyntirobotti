@@ -59,8 +59,8 @@
         }
     });
 
-    $('.chat-head').click(function (e) {
-         var chatMessage = $(this).find('.message');
+    $('.chat-close').click(function (e) {
+         var chatMessage = $('.message');
         $('#bubble').remove();
         if (!chatMessage.is(':visible')) {
 
@@ -77,9 +77,7 @@
             chatMessage.fadeToggle("slow");
             $('#bubble').remove();
     });
-    $('#msg').on("click", function() {
-        return false;
-    });
+
     $('.chat-head').on("drag", function() {
         $('#bubble').remove();
     });
