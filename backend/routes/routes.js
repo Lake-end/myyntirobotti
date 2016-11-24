@@ -1,6 +1,5 @@
 var questionService = require('../services/questionService');
 var sessionService = require('../services/sessionService');
-var emailService = require('../services/emailService');
 var contactService = require('../services/contactService');
 
 var Answer = require('../models/answer');
