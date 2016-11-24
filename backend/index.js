@@ -13,6 +13,7 @@ require('dotenv').load();
 require('./routes/routes')(app);
 
 var reportService = require('./services/reportService');
+var emailListService = require('./services/emailListService');
 
 // Start the server.
 app.listen(3000, function() {
@@ -29,3 +30,14 @@ setInterval(function () {
     }
   })
 }, reportTimer);
+
+var emailListTimer = process.env.REPORT_TIMER_MS || 86400000;
+
+// Set timer for email list emails.
+setInterval(function () {
+  emailListService.sendEmailList(function (err) {
+    if (err) {
+      console.log(err);
+    }
+  })
+}, emailListTimer);
