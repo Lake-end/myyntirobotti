@@ -46,11 +46,11 @@ module.exports = {
                 var mailOptions = {
                     from: '"Myyntirobotti" <myyntirobotti@gmail.com>',
                     to: 'myyntirobotti@gmail.com',
-                    subject: 'Kooste Myyntirobotin vastaanottamista sähköpostiosoitteista päivältä ' + dateStr,
-                    text: `Myyntirobotti on muodostanut ajastetun koosteen sovelluksen vastaanottamista sähköpostiosoitteista päivältä ${dateStr}.
+                    subject: 'Kooste Myyntirobotin menneellä viikolla vastaanottamista sähköpostiosoitteista päivältä ' + dateStr,
+                    text: `Myyntirobotti on muodostanut ajastetun koosteen sovelluksen menneellä viikolla vastaanottamista sähköpostiosoitteista päivältä ${dateStr}.
 
 \n\nKooste on liitteenä csv-muotoisessa tiedostossa, jonka voi avata esim. Microsoft Excelillä.`,
-                    html: `<p>Myyntirobotti on muodostanut ajastetun koosteen sovelluksen vastaanottamista sähköpostiosoitteista päivältä ${dateStr}.</p>
+                    html: `<p>Myyntirobotti on muodostanut ajastetun koosteen sovelluksen menneellä viikolla vastaanottamista sähköpostiosoitteista päivältä ${dateStr}.</p>
 
 <p>Kooste on liitteenä csv-muotoisessa tiedostossa, jonka voi avata esim. Microsoft Excelillä.</p>`,
                     attachments: {

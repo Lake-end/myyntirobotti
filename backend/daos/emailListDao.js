@@ -8,7 +8,7 @@ module.exports = {
       SELECT * FROM 
         (SELECT DISTINCT ON (email) organisation, email, timestamp
         FROM Contact
-        WHERE timestamp >= current_date - 1
+        WHERE timestamp >= current_date - 7
         ) AS email_list
       ORDER BY timestamp, organisation
     `)
