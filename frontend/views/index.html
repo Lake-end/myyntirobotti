@@ -34,7 +34,7 @@
             <hr align="center" width="95%">
         </div>
         <div ng-if="form==true">
-            <form class="form-horizontal text-center" ng-submit="formSubmit();">
+            <form class="form-horizontal text-center" ng-submit="formSubmit(); answerFunction(options[0].qid, options[0].id);">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Etunimi" ng-model="formData.name" required>
                 </div>
