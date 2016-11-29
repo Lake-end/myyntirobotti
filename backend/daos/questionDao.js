@@ -8,7 +8,7 @@ module.exports = {
   // Retrieves a single question with its answers
   getQuestion: function (id, callback) {
     db.many(
-      ` SELECT a.id, q.text, q.contains_link AS question, a.text AS answer, qa.next_question FROM Answer a
+      ` SELECT a.id, q.text, q.contains_link, a.text AS answer, qa.next_question FROM Answer a
         JOIN QuestionAnswer qa ON a.id=qa.answer_id
         JOIN Question q ON qa.question_id=q.id
         WHERE q.id=$1`,
@@ -16,7 +16,7 @@ module.exports = {
     ).then(function (data) {
       var answers = [];
       var questionText = '';
-      var containsLink = '';
+      var containsLink = false;
 
       for (i = 0; i < data.length; i++) {
         var answer = new Answer(data[i].id, data[i].answer, data[i].next_question);
