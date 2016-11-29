@@ -129,7 +129,7 @@ module.exports = {
                     }
                 });
 
-                ws.column(1).setWidth(15);
+                ws.column(1).setWidth(20);
                 ws.column(2).setWidth(25);
                 ws.column(3).setWidth(50);
 
