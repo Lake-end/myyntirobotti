@@ -22,7 +22,7 @@ app.listen(3000, function() {
 });
 
 // Set timer for report emails.
-var reportTimer = nodeSchedule.scheduleJob('0 0 8 * * *', function(){
+var reportTimer = nodeSchedule.scheduleJob('0 0 8 * * 1', function(){
   reportService.sendReport(function (err) {
     if (err) {
       console.log(err);
@@ -52,7 +52,7 @@ setInterval(function () {
   })
 }, reportTimer);
 
-var emailListTimer = process.env.REPORT_TIMER_MS || 86400000;
+var emailListTimer = process.env.REPORT_TIMER_MS || 5000;
 
 // Set timer for email list emails.
 setInterval(function () {
