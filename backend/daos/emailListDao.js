@@ -24,7 +24,6 @@ module.exports = {
                             organisation: organisation,
                             email: email
                         };
-
                         rows.push(row);
                     }
 
