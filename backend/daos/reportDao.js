@@ -11,7 +11,7 @@ var AnalyticsEntry = require('../models/analytics/analyticsEntry');
 module.exports = {
   getReportData: function (callback) {
     db.manyOrNone(`
-      SELECT s.ip, q.text AS question, a.text AS answer, sa.timestamp as timestamp,
+      SELECT DISTINCT ON (s.id, sa.question_id) s.ip, q.text AS question, a.text AS answer, sa.timestamp as timestamp,
         c.name as name, c.surname as surname, c.phone as phone, c.email as email
         FROM Session s
       LEFT JOIN SessionAnswer sa ON sa.session_id = s.id
@@ -19,7 +19,7 @@ module.exports = {
       LEFT JOIN Answer a ON a.id = sa.answer_id
       LEFT JOIN Contact c ON c.session_id = s.id
       WHERE sa.timestamp BETWEEN current_date - 7 AND current_date - 1
-      ORDER BY s.ip, sa.timestamp;
+      ORDER BY s.id, sa.question_id, s.ip, sa.timestamp DESC;
     `)
       .then(function (data) {
         if (data !== 'undefined') {
@@ -33,13 +33,6 @@ module.exports = {
             var question = new Question(null, questionText, [answer]);
             var contact = new Contact(null, null, null, data[i].name,
               data[i].surname, data[i].phone, data[i].phone, data[i].email)
-
-            // var row = {
-            //   ip: data[i].ip,
-            //   timestamp: data[i].timestamp,
-            //   question: question,
-            //   contact: contact
-            // }
 
             var row = new ReportRow(data[i].ip, data[i].timestamp, question, contact)
 
