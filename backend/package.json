@@ -9,6 +9,7 @@
     "async": "^2.1.4",
     "body-parser": "1.15.2",
     "dotenv": "^2.0.0",
+    "excel4node": "^1.2.1",
     "express": "^4.14.0",
     "json2csv": "^3.7.1",
     "node-schedule": "^1.2.0",
