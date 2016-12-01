@@ -85,17 +85,24 @@ module.exports = {
         ws.cell(row, 1).string('Loppuun päässeiden osuus vastanneista').style(h2);
         row += 2;
 
+        var alignLeft = wb.createStyle({
+          alignment: {
+            wrapText: true,
+            horizontal: 'left'
+          }
+        })
+
         ws.cell(row, 1).string('Kesken jääneet');
         var unfinished = parseInt(results[0][1]);
-        ws.cell(row, 2).number(unfinished);
+        ws.cell(row, 2).number(unfinished).style(alignLeft);
         row++;
         ws.cell(row, 1).string('Loppuun päässeet');
         var finished = parseInt(results[0][0]);
-        ws.cell(row, 2).number(finished);
+        ws.cell(row, 2).number(finished).style(alignLeft);
         row++;
         ws.cell(row, 1).string('Yhteensä');
         var sum = finished + unfinished
-        ws.cell(row, 2).number(sum);
+        ws.cell(row, 2).number(sum).style(alignLeft);
 
         row += 2;
 
