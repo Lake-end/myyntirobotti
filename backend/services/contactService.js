@@ -41,8 +41,17 @@ module.exports = {
                             } else {
                                 linkClicked = "Ei";
                             }
-                            answerStringText = answerStringText.concat("Klikkasiko asiakas linkkiä?\n" + linkClicked) + "\n";
-                            answerStringHtml = answerStringHtml.concat("Klikkasiko asiakas linkkiä?<br>" + linkClicked) + "<br>";
+                            answerStringText = answerStringText.concat("Klikkasiko asiakas linkkiä \"Digia Logistics -- enemmän näkyvyyttä kansainvälisille kuljetusketjuille\"?\n" + linkClicked) + "\n";
+                            answerStringHtml = answerStringHtml.concat("Klikkasiko asiakas linkkiä \"Digia Logistics -- enemmän näkyvyyttä kansainvälisille kuljetusketjuille\"?<br>" + linkClicked) + "<br>";
+                        }
+                        if (answers[i].question.id == 60) {
+                            if (answers[i].linkClicked == true) {
+                                linkClicked = "Kyllä";
+                            } else {
+                                linkClicked = "Ei";
+                            }
+                            answerStringText = answerStringText.concat("Klikkasiko asiakas linkkiä \"Digia Enterprise -- monipuolinen, suomalainen toiminnan- ja talousohjausjärjestelmä?\"\n" + linkClicked) + "\n";
+                            answerStringHtml = answerStringHtml.concat("Klikkasiko asiakas linkkiä \"Digia Enterprise -- monipuolinen, suomalainen toiminnan- ja talousohjausjärjestelmä?\"?<br>" + linkClicked) + "<br>";
                         }
                     }
 
