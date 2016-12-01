@@ -38,29 +38,3 @@ var emailListTimer = nodeSchedule.scheduleJob('0 0 8 * * 1', function(){
     }
   })
 });
-
-/*
-
-var reportTimer = process.env.REPORT_TIMER_MS || 86400000;
-
-// Set timer for report emails.
-setInterval(function () {
-  reportService.sendReport(function (err) {
-    if (err) {
-      console.log(err);
-    }
-  })
-}, reportTimer);
-
-var emailListTimer = process.env.REPORT_TIMER_MS || 5000;
-
-// Set timer for email list emails.
-setInterval(function () {
-  emailListService.sendEmailList(function (err) {
-    if (err) {
-      console.log(err);
-    }
-  })
-}, emailListTimer);
-
-*/
