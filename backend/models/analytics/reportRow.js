@@ -1,10 +1,12 @@
 var Question = require('../question');
 var Contact = require('../contact');
 
-var ReportRow = function (ip, timestamp, question, contact) {
+var ReportRow = function (userId, ip, startTime, endTime, answerMap, contact) {
+  this.userId = userId || null;
   this.ip = ip || null;
-  this.timestamp = timestamp || null;
-  this.question = question || new Question();
+  this.startTime = startTime|| null;
+  this.endTime = endTime || null;
+  this.answerMap = answerMap || new Map();
   this.contact = contact || new Contact();
 }
 

@@ -23,6 +23,7 @@ module.exports = {
     // Uses hard coded question IDs due to time constraints.
     // 1 = industry, 2 = size and 3 = revenue
     async.series([
+      function (callback) { reportDao.getUserCounts(callback) },
       function (callback) { reportDao.getAnswerCounts(1, callback) },
       function (callback) { reportDao.getAnswerCounts(2, callback) },
       function (callback) { reportDao.getAnswerCounts(3, callback) },
@@ -42,7 +43,9 @@ module.exports = {
 
         var wb = new xl.Workbook();
 
-        var ws = wb.addWorksheet('Analytiikka');
+        // TODO: switch ws to ws2
+        var ws2 = wb.addWorksheet('Vastaukset');
+        var ws = wb.addWorksheet('Kooste');
 
         var style = wb.createStyle({
           font: {
@@ -51,15 +54,24 @@ module.exports = {
           }
         });
 
+        var h2 = wb.createStyle({
+          font: {
+            bold: true,
+            size: 15
+          }
+        })
+
         var columnHeaderStyle = wb.createStyle({
           font: {
             bold:true
           }
         });
 
-        ws.column(1).setWidth(50);
+        ws.column(1).setWidth(25);
+        ws.column(2).setWidth(50);
+        ws.column(3).setWidth(15);
 
-        ws.cell(1, 1, 1, 2, true).string(`Analytiikka ajalta ${startDateStr} - ${endDateStr}`).style(
+        ws.cell(1, 1, 1, 2, true).string(`Kooste ajalta ${startDateStr} - ${endDateStr}`).style(
           wb.createStyle({
             font: {
               bold: true,
@@ -70,30 +82,59 @@ module.exports = {
 
         var row = 3;
 
-        for (i = 0; i < results.length - 1; i++) {
+        ws.cell(row, 1).string('Loppuun päässeiden osuus vastanneista').style(h2);
+        row += 2;
+
+        ws.cell(row, 1).string('Kesken jääneet');
+        var unfinished = parseInt(results[0][1]);
+        ws.cell(row, 2).number(unfinished);
+        row++;
+        ws.cell(row, 1).string('Loppuun päässeet');
+        var finished = parseInt(results[0][0]);
+        ws.cell(row, 2).number(finished);
+        row++;
+        ws.cell(row, 1).string('Yhteensä');
+        var sum = finished + unfinished
+        ws.cell(row, 2).number(sum);
+
+        row += 2;
+
+        ws.cell(row, 1).string('Kooste loppuun päässeiden yritysten tiedoista').style(h2);
+
+        row += 2;
+
+        for (i = 1; i < 4; i++) {
+          var header = '';
+
+          switch (i) {
+            case (1):
+              header = 'Toimiala'
+              break;
+            case (2):
+              header = 'Yrityksen koko'
+              break;
+            case (3):
+              header = 'Liikevaihto'
+              break;
+          }
+
           var result = results[i];
 
-          ws.cell(row,1).string(result.question.text);
-          row += 2;
-          ws.cell(row,1).string('Vastaus').style(columnHeaderStyle);
-          ws.cell(row,2).string('Lukumäärä').style(columnHeaderStyle);
-          row++;
+          if (typeof result !== 'undefined') {
+            ws.cell(row, 1).string(header).style(columnHeaderStyle);
 
-          result.answerCounts.forEach(function (value, key, map) {
-            ws.cell(row, 1).string(key.text);
-            ws.cell(row, 2).number(value);
-            row++;
-          })
+            result.answerCounts.forEach(function (value, key, map) {
+              ws.cell(row, 2).string(key.text);
+              ws.cell(row, 3).number(value);
+              row++;
+            })
 
-          row += 2;
+            row ++;
+          }
         }
 
-        var ws2 = wb.addWorksheet('Vastaukset');
-
-        ws2.column(1).setWidth(25);
-        ws2.column(2).setWidth(25);
-        ws2.column(3).setWidth(50);
-        ws2.column(4).setWidth(50);
+        ws2.column(1).setWidth(50);
+        ws2.column(2).setWidth(50);
 
         ws2.cell(1, 1, 1, 3, true).string(`Kaikki vastaukset ajalta ${startDateStr} - ${endDateStr}`).style(
           wb.createStyle({
@@ -104,21 +145,50 @@ module.exports = {
           })
         );
 
-        ws2.cell(3,1).string('IP').style(columnHeaderStyle);
-        ws2.cell(3,2).string('Aika').style(columnHeaderStyle);
-        ws2.cell(3,3).string('Kysymys').style(columnHeaderStyle);
-        ws2.cell(3,4).string('Vastaus').style(columnHeaderStyle);
-
-        var allAnswers = results[3];
-
-        var row = 4;
+        var allAnswers = results[4];
+        var row = 3;
 
         for (i = 0; i < allAnswers.length; i++) {
-          ws2.cell(row, 1).string(allAnswers[i].ip);
-          ws2.cell(row, 2).date(allAnswers[i].timestamp).style({numberFormat: 'd/m/yy hh:mm:ss'});
-          ws2.cell(row, 3).string(allAnswers[i].question.text);
-          ws2.cell(row, 4).string(allAnswers[i].question.answers[0].text);
-          row++;
+          ws2.cell(row, 1).string(allAnswers[i].ip).style(columnHeaderStyle);
+
+          var startTime = allAnswers[i].startTime;
+          var endTime = allAnswers[i].endTime;
+
+          var startTimeStr = `${startTime.getDate()}/${startTime.getMonth() + 1}/${startTime.getFullYear() - 2000} \
+${startTime.getHours()}:${startTime.getMinutes()}:${startTime.getSeconds()}`;
+
+          var endTimeStr = `${endTime.getHours()}:${endTime.getMinutes()}:${endTime.getSeconds()}`;
+          var dateStr = `${startTimeStr} - ${endTimeStr}`;
+          var entry = `#${i + 1} ${dateStr}`;
+
+          ws2.cell(row, 2).string(entry).style(columnHeaderStyle);
+
+          row += 2;
+
+          var answerMap = allAnswers[i].answerMap
+
+          answerMap.forEach(function (value, key, map) {
+            ws2.cell(row, 1).string(key);
+            ws2.cell(row, 2).string(value);
+            row++;
+          })
+
+          if (allAnswers[i].contact.email.length > 0) {
+            row++;
+
+            ws2.cell(row, 1).string('Nimi')
+            ws2.cell(row, 2).string((allAnswers[i].contact.name || '') + ' ' + (allAnswers[i].contact.surname || ''));
+            row++;
+            ws2.cell(row, 1).string('Sähköposti')
+            ws2.cell(row, 2).string(allAnswers[i].contact.email || '');
+            row++;
+            ws2.cell(row, 1).string('Organisaatio')
+            ws2.cell(row, 2).string(allAnswers[i].contact.organisation || '');
+
+            row++;
+          }
+
+          row += 2;
         }
 
         wb.writeToBuffer().then(function (buffer) {
@@ -154,10 +224,9 @@ Kooste on xlsx-tiedostossa, jonka voi avata esim. Microsoft Excelillä.`,
             console.log('Usage history report sent: ' + info.response);
           });
 
-
           callback();
         })
       }
     });
-  }
+  },
 }
