@@ -28,7 +28,10 @@ module.exports = {
 
           var answerStringText = "";
           var answerStringHtml = "";
-          var linkClicked = "";
+          var linkClicked1 = "Ei";
+          var linkClicked2 = "Ei";
+          var linkFound1 = false;
+          var linkFound2 = false;
 
           for (i = 0; i < answers.length; i++) {
             if (answers[i].question.id > 0 && answers[i].question.id < 6) {
@@ -36,23 +39,26 @@ module.exports = {
               answerStringHtml = answerStringHtml.concat(answers[i].question.text + "<br>" + answers[i].answer.text + "<br>");
             }
             if (answers[i].question.id == 6) {
+                linkFound1 = true;
               if (answers[i].linkClicked == true) {
-                linkClicked = "Kyllä";
-              } else {
-                linkClicked = "Ei";
+                linkClicked1 = "Kyllä";
               }
-              answerStringText = answerStringText.concat("Klikkasiko asiakas linkkiä \"Digia Logistics -- enemmän näkyvyyttä kansainvälisille kuljetusketjuille\"?\n" + linkClicked) + "\n";
-              answerStringHtml = answerStringHtml.concat("Klikkasiko asiakas linkkiä \"Digia Logistics -- enemmän näkyvyyttä kansainvälisille kuljetusketjuille\"?<br>" + linkClicked) + "<br>";
             }
             if (answers[i].question.id == 60) {
+                linkFound2 = true;
               if (answers[i].linkClicked == true) {
-                linkClicked = "Kyllä";
-              } else {
-                linkClicked = "Ei";
+                linkClicked2 = "Kyllä";
               }
-              answerStringText = answerStringText.concat("Klikkasiko asiakas linkkiä \"Digia Enterprise -- monipuolinen, suomalainen toiminnan- ja talousohjausjärjestelmä?\"\n" + linkClicked) + "\n";
-              answerStringHtml = answerStringHtml.concat("Klikkasiko asiakas linkkiä \"Digia Enterprise -- monipuolinen, suomalainen toiminnan- ja talousohjausjärjestelmä?\"?<br>" + linkClicked) + "<br>";
             }
+          }
+
+          if (linkFound1 == true) {
+              answerStringText = answerStringText.concat("Klikkasiko asiakas linkkiä \"Digia Logistics -- enemmän näkyvyyttä kansainvälisille kuljetusketjuille\"?\n" + linkClicked1) + "\n";
+              answerStringHtml = answerStringHtml.concat("Klikkasiko asiakas linkkiä \"Digia Logistics -- enemmän näkyvyyttä kansainvälisille kuljetusketjuille\"?<br>" + linkClicked1) + "<br>";
+          }
+          if (linkFound2 == true) {
+              answerStringText = answerStringText.concat("Klikkasiko asiakas linkkiä \"Digia Enterprise -- monipuolinen, suomalainen toiminnan- ja talousohjausjärjestelmä\"?\n" + linkClicked2) + "\n";
+              answerStringHtml = answerStringHtml.concat("Klikkasiko asiakas linkkiä \"Digia Enterprise -- monipuolinen, suomalainen toiminnan- ja talousohjausjärjestelmä\"?<br>" + linkClicked2) + "<br>";
           }
 
           var mailOptions = {
