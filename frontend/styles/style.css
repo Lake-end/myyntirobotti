@@ -6,7 +6,7 @@ body {
 }
 
 .chat-head {
-    position: absolute;
+    position: fixed;
     right: 5px;
     top: 0;
     z-index: 9999;
@@ -16,6 +16,7 @@ body {
 
 .chat-head .person {
     background:url('https://i.imgur.com/fORwSWL.png');
+    background-color:rgba(239, 239, 239, 0.9);
     cursor: pointer;
     display: block;
     width: 100%;
@@ -35,9 +36,10 @@ body {
     bottom:0%;
     min-height:255px;
     width:280px;
-    background-color:rgba(255,255,255,0.9);
+    background-color:rgba( 255, 255, 255, 0.9);
     border:1px solid #bcbcbc;
     outline:1px solid transparent;
+    padding-bottom:5px;
 
 }
 
@@ -157,12 +159,15 @@ p.ng-binding{
     word-wrap: break-word;
     padding:10px;
     word-break:normal;
-    background-color:white;
+    background-color:rgba(223, 25, 44, 0.9);
     min-height:80px;
-    margin:6px;
+    color:white;
     box-shadow: 0px 0px 1px black;
     border-radius:2px;
     font-size:1.1em;
+    text-align: center;
+    margin-bottom:5px;
+
 }
 
 pre > p{
@@ -170,66 +175,19 @@ pre > p{
     font-size:1.1em;
 }
  hr{
-     border-top: 1px solid #bec0c4;
+     border-top: 1px solid #c1c1c1;
      margin:0 auto 0 auto;
  }
 
-#glyph{
-float:right;
-}
-
-#clear {
-display:block;
-height:5%;
-}
-
-.box-header{
-    height:55px;
-    width:100%;
-    transition: all 0.3s ease-out;
-}
-
-.box-header > span{
-    color:#828282; margin-top:15px; font-size:2em; text-align:center;
-}
-
-.circle-header{
-    position:absolute;
-    top:0px;
-    left:120px;
-    background-color:white;
-    box-shadow: 0px 0px 4px black;
-    margin:auto;
-    height:50px;
-    width:50px;
-    border-radius:50px;
-    border:1px solid white;
-    z-index:100;
-}
-.box-header.ng-hide{
-    opacity:0;
-}
-
-.panel-body{
-    padding:0;
-
-}
-.panel-default{
-    border:0px;
-    background-color:transparent;
-
-}
-.panel-group{
-    margin:0;
-    background-color:transparent;
-}
 
 .glyphicon-remove, .glyphicon-chevron-left{
     cursor: pointer;
 }
 
 .glyphicon-remove{
-
+    position:absolute;
+    top:-42px;
+    left:44%;
     font-size:2em;
     color:#828282;
 }
@@ -238,11 +196,33 @@ height:5%;
 
     color:#df192c;
 }
-
+.question a{
+    color:black;
+}
+.question a:hover{
+    color:#ededed;
+}
 .form-horizontal .form-group{
     margin:7px 0;
 }
 .form-control {
     width:97%;
     margin:auto;
+}
+
+.thank-you{
+    margin:10px;
+    height:235px;
+    border:1px solid gray;
+    text-align: center;
+}
+
+.thank-you span {
+    font-size: 3em;
+    color:darkgreen;
+    margin-top:35px;
+}
+
+.thank-you h3 {
+    padding:0 5px 75px 5px;
 }
