@@ -35,6 +35,8 @@
 
 
         var $this = $(this);
+        var anim = this.childNodes[3];
+
         $('#bubble').remove();
         if(middleY < e.pageY){
             box.style.bottom = "600%";
@@ -44,21 +46,22 @@
         if (window.innerWidth/2 > e.pageX) {
 
         } else {
-            box.style.left ="-450%"
+            box.style.left ="-440%"
         };
 
        if (window.innerWidth/2 > e.pageX && animator == false) {
 
-            $("#msg").animate({
-                left: "+=250"
-            });
-           animator = true;
+           anim.style.left = "0px";
+           anim.style.transitionDuration = "1s";
+
         } if(window.innerWidth/2 < e.pageX && animator == true) {
-            $("#msg").animate({
-                left: "-=20"
-            });
-           animator = false;
+
+            anim.style.left = "-0px";
+            anim.style.transitionDuration = "1s";
+            animator = false;
         };
+
+
         if (window.innerWidth/7 > e.pageX) {
             $this.animate({
                 left: -offset
@@ -83,7 +86,7 @@
         if (!chatMessage.is(':visible')) {
             $('.message:visible').hide();
             if(e.pageX > middle){
-                box.style.left = "-450%";
+                box.style.left = "-440%";
                 box.style.top = "10%";
             }
             else {

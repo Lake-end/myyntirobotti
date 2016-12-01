@@ -28,25 +28,30 @@ module.exports = {
 
                     var answerStringText = "";
                     var answerStringHtml = "";
+                    var linkClicked = "";
 
                     for (i = 0; i < answers.length; i++) {
                         if (answers[i].question.id > 0 && answers[i].question.id < 6) {
                             answerStringText = answerStringText.concat(answers[i].question.text + "\n" + answers[i].answer.text + "\n");
                             answerStringHtml = answerStringHtml.concat(answers[i].question.text + "<br>" + answers[i].answer.text + "<br>");
                         }
-                    }
-
-                    var linkClicked = "";
-
-                    for (i = 0; i < answers.length; i++) {
                         if (answers[i].question.id == 6) {
                             if (answers[i].linkClicked == true) {
                                 linkClicked = "Kyllä";
                             } else {
                                 linkClicked = "Ei";
                             }
-                            answerStringText = answerStringText.concat("Klikkasiko asiakas linkkiä?\n" + linkClicked);
-                            answerStringHtml = answerStringHtml.concat("Klikkasiko asiakas linkkiä?<br>" + linkClicked);
+                            answerStringText = answerStringText.concat("Klikkasiko asiakas linkkiä \"Digia Logistics -- enemmän näkyvyyttä kansainvälisille kuljetusketjuille\"?\n" + linkClicked) + "\n";
+                            answerStringHtml = answerStringHtml.concat("Klikkasiko asiakas linkkiä \"Digia Logistics -- enemmän näkyvyyttä kansainvälisille kuljetusketjuille\"?<br>" + linkClicked) + "<br>";
+                        }
+                        if (answers[i].question.id == 60) {
+                            if (answers[i].linkClicked == true) {
+                                linkClicked = "Kyllä";
+                            } else {
+                                linkClicked = "Ei";
+                            }
+                            answerStringText = answerStringText.concat("Klikkasiko asiakas linkkiä \"Digia Enterprise -- monipuolinen, suomalainen toiminnan- ja talousohjausjärjestelmä?\"\n" + linkClicked) + "\n";
+                            answerStringHtml = answerStringHtml.concat("Klikkasiko asiakas linkkiä \"Digia Enterprise -- monipuolinen, suomalainen toiminnan- ja talousohjausjärjestelmä?\"?<br>" + linkClicked) + "<br>";
                         }
                     }
 

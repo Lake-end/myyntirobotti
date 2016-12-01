@@ -75,7 +75,7 @@ module.exports = {
 
     deleteSession: function (id, callback) {
         db.tx(function (t) {
-            return t.none("UPDATE SessionAnswer SET session_id=null WHERE session_id=$1", id)
+            return t.none("UPDATE SessionAnswer SET session_id=null WHERE session_id=$1; UPDATE Contact SET session_id=null WHERE session_id=$1", id)
                 .then(function (success) {
                     return t.none("DELETE FROM Session WHERE id=$1", id);
                 });

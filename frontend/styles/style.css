@@ -1,25 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,700);
 body {
     margin-top: 4px;
-    font-family: 'Raleway', serif;
+    font-family: 'Titillium Web', sans-serif;
     height:100%;
-}
-
-pre {
-    word-break:normal;
-    background-color:white;
-    min-height:80px;
-    border:none;
-    font-family: 'Raleway', serif;
-    width:100%;
-    white-space: pre;           /* CSS 2.0 */
-	white-space: pre-wrap;      /* CSS 2.1 */
-	white-space: pre-line;      /* CSS 3.0 */
-	white-space: -pre-wrap;     /* Opera 4-6 */
-	white-space: -o-pre-wrap;   /* Opera 7 */
-	white-space: -moz-pre-wrap; /* Mozilla */
-	white-space: -hp-pre-wrap;  /* HP Printers */
-	word-wrap: break-word;      /* IE 5+ */
 }
 
 .chat-head {
@@ -170,12 +153,18 @@ p.ng-binding{
 }
 
 .question{
-    background-color:rgba(234, 234, 234, 0.3);
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    padding:10px;
+    word-break:normal;
+    background-color:white;
     min-height:80px;
     margin:6px;
     box-shadow: 0px 0px 1px black;
     border-radius:2px;
+    font-size:1.1em;
 }
+
 pre > p{
     padding:5px;
     font-size:1.1em;
