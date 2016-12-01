@@ -25,10 +25,8 @@
         <span title="Poista tallennetut tiedot" class="glyphicon glyphicon-remove chat-close" ng-click="clearSession();" style="position:absolute; top:-50px; left:50%;"></span>
         <div ng-if="lastq==false">
             <div class="question">
-                <pre>
                 <p ng-bind-html="question"></p>
                 <a id="questionLink" ng-click="linkClicked()" target="_blank"></a>
-                </pre>
             </div>
             <hr ng-if="form==false" align="center" width="95%">
             <div ng-if="form==false" ng-repeat="option in options" ng-click="answerFunction(option.qid, option.id, link)">
