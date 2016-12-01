@@ -9,7 +9,8 @@ VALUES
 ,(60, 'Suosittelemme teille Digia Enterprise -- monipuolinen, suomalainen toiminnan- ja talousohjausjärjestelmä')
 ,(8, 'Tässä hieman muiden asiakkaidemme kokemuksia Digia Logisticsista')
 ,(80, 'Tässä hieman muiden asiakkaidemme kokemuksia Digia Enterprisesta')
-,(1000, 'Täytä yhteystietosi, jotta voimme kertoa sinulle lisää!');
+,(1000, 'Täytä yhteystietosi, jotta voimme kertoa sinulle lisää!')
+,(2000, 'Viimeinen kysymys');
 
 INSERT INTO Answer (id, text)
 VALUES
@@ -33,7 +34,8 @@ VALUES
 ,(54, 'Kuluttajan palautelähtöinen ymmärtäminen')
 ,(61, 'Tämä vaikuttaa hyvältä. Kuinka voin saada lisätietoa?')
 ,(62, 'Mitä muuta voitte minulle tarjota?')
-,(1001, 'Dummy answer (ei pitäisi näkyä)');
+,(1001, 'Dummy answer (ei pitäisi näkyä)')
+,(2002, 'Dummy answer (ei pitäisi näkyä)');
 
 INSERT INTO QuestionAnswer (question_id, answer_id, next_question)
 VALUES
@@ -58,7 +60,8 @@ VALUES
 ,(6, 62, 60)
 ,(60, 61, 1000)
 ,(60, 62, 6)
-,(1000, 1001, 1);
+,(1000, 1001, 2000)
+,(2000, 2002, 1);
 
 INSERT INTO Session (id, ip, current_question)
 VALUES

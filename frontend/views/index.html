@@ -18,57 +18,60 @@
     <link rel="stylesheet" type="text/css" href="../styles/style.css">
 </head>
 <body ng-app="myApp" ng-controller="MainController">
-
 <!--chat head-->
 <div class="chat-head" id="chathead">
     <a class="person chat-close"></a>
     <div class = message id = "msg">
         <span title="Poista tallennetut tiedot" class="glyphicon glyphicon-remove chat-close" ng-click="clearSession();" style="position:absolute; top:-50px; left:50%;"></span>
-        <div class="question">
-            <pre>
-            <p ng-bind-html="question"></p>
-            <a id="questionLink" ng-click="linkClicked()" target="_blank"></a>
-            </pre>
-        </div>
-        <hr ng-if="form==false" align="center" width="95%">
-        <div ng-if="form==false" ng-repeat="option in options" ng-click="answerFunction(option.qid, option.id, link)">
-            <div class="buttons" role="button">
-                <p ng-hide="hide">{{option.answer}}</p>
+        <div ng-if="lastq==false">
+            <div class="question">
+                <pre>
+                <p ng-bind-html="question"></p>
+                <a id="questionLink" ng-click="linkClicked()" target="_blank"></a>
+                </pre>
             </div>
-            <hr align="center" width="95%">
+            <hr ng-if="form==false" align="center" width="95%">
+            <div ng-if="form==false" ng-repeat="option in options" ng-click="answerFunction(option.qid, option.id, link)">
+                <div class="buttons" role="button">
+                    <p ng-hide="hide">{{option.answer}}</p>
+                </div>
+                <hr align="center" width="95%">
+            </div>
+            <div ng-if="form==true">
+                <form class="form-horizontal text-center" ng-submit="formSubmit(); answerFunction(options[0].qid, options[0].id);">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Etunimi" ng-model="formData.name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Sukunimi" ng-model="formData.surname" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-control" placeholder="Puhelinnumero" ng-model="formData.phone" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Sähköposti" ng-model="formData.email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Organisaation nimi" ng-model="formData.organisation" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea maxlength="255" type="text" class="form-control" placeholder="Vapaa kenttä" ng-model="formData.comments"></textarea>
+                    </div>
+                    <input type="submit" class="btn btn-default" value="Lähetä">
+                </form>
+            </div>
         </div>
-        <div ng-if="form==true">
-            <form class="form-horizontal text-center" ng-submit="formSubmit(); answerFunction(options[0].qid, options[0].id);">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Etunimi" ng-model="formData.name" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Sukunimi" ng-model="formData.surname" required>
-                </div>
-                <div class="form-group">
-                    <input type="tel" class="form-control" placeholder="Puhelinnumero" ng-model="formData.phone" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" class="form-control" placeholder="Sähköposti" ng-model="formData.email" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Organisaation nimi" ng-model="formData.organisation" required>
-                </div>
-                <div class="form-group">
-                    <textarea maxlength="255" type="text" class="form-control" placeholder="Vapaa kenttä" ng-model="formData.comments"></textarea>
-                </div>
-                <input type="submit" class="btn btn-default" value="Lähetä">
-            </form>
+        <div ng-if="lastq==true" style="margin:10px; height:235px; border:1px solid gray; text-align: center;">
+            <span style="font-size: 3em; color:darkgreen; margin-top:35px;" class="glyphicon glyphicon-ok"></span>
+            <h3 style="padding:0 5px 75px 5px;">Kiitos vastaamisesta, olemme yhteydessä</h3>
         </div>
     </div>
     <div class="bubble" id="bubble">
-    <p id="bubble-text">
-        Hei olen myyntirobotti, klikkaa minua.
-    </p>
+        <p id="bubble-text">
+            Hei olen myyntirobotti, klikkaa minua.
+        </p>
     </div>
 </div>
-
-
 <script>
     $(function () {
         $("#dragme").draggable({containment: "document"});
