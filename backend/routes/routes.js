@@ -2,6 +2,7 @@ var questionService = require('../services/questionService');
 var sessionService = require('../services/sessionService');
 var contactService = require('../services/contactService');
 var emailListService = require('../services/emailListService');
+var reportService = require('../services/reportService');
 
 var Answer = require('../models/answer');
 var Contact = require('../models/contact');
@@ -168,4 +169,14 @@ question_id ${questionId} and answer_id ${answerId}`);
             }
         })
     });
+
+  app.get('/send-report', function (req, res) {
+    reportService.sendReport(function(err, data) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.sendStatus(200);
+      }
+    })
+  })
 };
