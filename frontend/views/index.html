@@ -22,7 +22,7 @@
 <div class="chat-head" id="chathead">
     <a class="person chat-close"></a>
     <div class = message id = "msg">
-        <span title="Poista tallennetut tiedot" class="glyphicon glyphicon-remove chat-close" ng-click="clearSession();" style="position:absolute; top:-50px; left:50%;"></span>
+        <span title="Poista tallennetut tiedot" class="glyphicon glyphicon-remove chat-close" ng-click="clearSession();"></span>
         <div ng-if="lastq==false">
             <div class="question">
                 <p ng-bind-html="question"></p>
@@ -59,9 +59,9 @@
                 </form>
             </div>
         </div>
-        <div ng-if="lastq==true" style="margin:10px; height:235px; border:1px solid gray; text-align: center;">
-            <span style="font-size: 3em; color:darkgreen; margin-top:35px;" class="glyphicon glyphicon-ok"></span>
-            <h3 style="padding:0 5px 75px 5px;">Kiitos vastaamisesta, olemme yhteydessä</h3>
+        <div ng-if="lastq==true" class="thank-you">
+            <span class="glyphicon glyphicon-ok"></span>
+            <h3 style="padding:0 5px 75px 5px;">Kiitos vastaamisesta, olemme yhteydessä!</h3>
         </div>
     </div>
     <div class="bubble" id="bubble">
